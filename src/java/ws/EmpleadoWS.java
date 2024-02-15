@@ -56,4 +56,22 @@ public class EmpleadoWS {
             }
         }
     }
+    
+    @PUT
+    @Path("modificarEmpleado")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje editarInformacionEmpleado(String json){
+        if(json.isEmpty()){
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }else{
+            Gson gson = new Gson();
+            DatosRegistroEmpleado datosEmpleado = gson.fromJson(json, DatosRegistroEmpleado.class);
+            
+            if(datosEmpleado.getEmpleado() != null || datosEmpleado.getPersona() != null){
+                
+            }
+        }
+        return null;
+    }
 }

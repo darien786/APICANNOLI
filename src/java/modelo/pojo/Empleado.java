@@ -18,6 +18,7 @@ public class Empleado {
     private String contrasenia;
     private Integer rol;
     private Integer estatus;
+    private String nombreEmpleado;
 
     public Empleado() {
     }
@@ -32,6 +33,8 @@ public class Empleado {
         this.rol = rol;
         this.estatus = estatus;
     }
+
+    
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -95,6 +98,14 @@ public class Empleado {
 
     public void setEstatus(Integer estatus) {
         this.estatus = estatus;
+    }
+
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
+
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
 }
