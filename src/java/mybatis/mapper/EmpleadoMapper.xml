@@ -6,5 +6,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="empleado">
-
+    <insert id="registrarEmpleado" parameterType="modelo.pojo.DatosRegistroEmpleado" statementType="CALLABLE">
+        {CALL registrarEmpleado(
+        #{persona.nombrePersona, mode=IN, jdbcType=VARCHAR},
+        #{persona.apellidoPaterno, mode=IN, jdbcType=VARCHAR},
+        #{persona.apellidoMaterno, mode=IN, jdbcType=VARCHAR},
+    
+        #{empleado.curp, mode=IN, jdbcType=VARCHAR},
+        #{empleado.username, mode=IN, jdbcType=VARCHAR},
+        #{empleado.correo, mode=IN, jdbcType=VARCHAR},
+        #{empleado.contrasenia, mode=IN, jdbcType=VARCHAR},
+        #{empleado.rol, mode=IN, jdbcType=INTEGER},
+    
+        #{filasAfectadas, mode=INOUT, jdbcType=INTEGER},
+        #{error, mode=INOUT, jdbcType=VARCHAR}
+    )}
+    </insert>
+    
+    
 </mapper>

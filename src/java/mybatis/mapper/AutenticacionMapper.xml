@@ -6,5 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="autenticacion">
-
+    
+    <select id="inicioSesionEscritorio" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado" >
+        SELECT idEmpleado, persona, curp, username, correo, contrasenia, rol, estatus
+        FROM empleados 
+        WHERE username=#{username} AND contrasenia=#{contrasenia}
+    </select>
 </mapper>

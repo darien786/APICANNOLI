@@ -5,10 +5,42 @@
  */
 package modelo;
 
+import modelo.pojo.Empleado;
+import modelo.pojo.MensajeAutenticacion;
+import mybatis.MyBatisUtil;
+import org.apache.ibatis.session.SqlSession;
+
 /**
  *
  * @author cr7_k
  */
 public class AutenticacionDAO {
     
+    public static MensajeAutenticacion inicioSesionEscritorio(Empleado empleado){
+        MensajeAutenticacion mensaje = new MensajeAutenticacion();
+        mensaje.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+           try{
+               Empleado sesionEmpleado = conexionBD.selectOne("autenticacion.inicioSesionEscritorio", empleado);
+               
+               if(sesionEmpleado != null){
+                   mensaje.setError(false);
+                   mensaje.setMensaje("!Bienvenido ");
+                   mensaje.setEmpleado(sesionEmpleado);
+               }else{
+                   mensaje.setMensaje("No se puede realizar la operación");
+               }
+           }catch(Exception e){
+               mensaje.setMensaje("Error al realizar la operacion, favor de intentarlo mas tarde.");
+               e.printStackTrace();
+           }finally{
+               conexionBD.close();
+           } 
+        }else{
+            mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+        }
+        
+        return mensaje;
+    }
 }

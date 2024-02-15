@@ -10,22 +10,42 @@ package modelo.pojo;
  * @author cr7_k
  */
 public class Empleado {
+    private Integer idEmpleado;
+    private Integer persona;
     private String curp;
     private String username;
     private String correo;
     private String contrasenia;
     private Integer rol;
-    private Integer persona;
+    private Integer estatus;
 
     public Empleado() {
     }
 
-    public Empleado(String curp, String username, String correo, String contrasenia, Integer rol, Integer persona) {
+    public Empleado(Integer idEmpleado, Integer persona, String curp, String username, String correo, String contrasenia, Integer rol, Integer estatus) {
+        this.idEmpleado = idEmpleado;
+        this.persona = persona;
         this.curp = curp;
         this.username = username;
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.rol = rol;
+        this.estatus = estatus;
+    }
+
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public Integer getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Integer persona) {
         this.persona = persona;
     }
 
@@ -69,12 +89,12 @@ public class Empleado {
         this.rol = rol;
     }
 
-    public Integer getPersona() {
-        return persona;
+    public Integer getEstatus() {
+        return estatus;
     }
 
-    public void setPersona(Integer persona) {
-        this.persona = persona;
+    public void setEstatus(Integer estatus) {
+        this.estatus = estatus;
     }
-        
+
 }
