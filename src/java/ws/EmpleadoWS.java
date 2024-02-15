@@ -65,7 +65,6 @@ public class EmpleadoWS {
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-    
     }
     
     @POST
@@ -104,7 +103,5 @@ public class EmpleadoWS {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
-    }
-    
-    
+    }    
 }

@@ -41,4 +41,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     )}
     </insert>
     
+    <update id="modificarEmpleado" parameterType="modelo.pojo.DatosRegistroEmpleado" statementType="CALLABLE">
+        {CALL modificarEmpleado(
+            #{empleado.idEmpleado, mode=IN, jdbcType=INTEGER},
+            #{empleado.correo, mode=IN, jdbcType=VARCHAR},
+            #{empleado.contrasenia, mode=IN, jdbcType=VARCHAR},
+            #{empleado.estatus, mode=IN, jdbcType=INTEGER},
+            
+            #{persona.idPersona, mode=IN, jdbcType=INTEGER},
+            #{persona.nombrePersona, mode=IN, jdbcType=VARCHAR},
+            #{persona.apellidoPaterno, mode=IN, jdbcType=VARCHAR},
+            #{persona.apellidoMaterno, mode=IN, jdbcType=VARCHAR},
+        
+            #{filasAfectadas, mode=INOUT, jdbcType=INTEGER},
+            #{error, mode=INOUT, jdbcType=VARCHAR}
+        )}
+    </update>
+    
 </mapper>
