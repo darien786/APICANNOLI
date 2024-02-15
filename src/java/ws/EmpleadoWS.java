@@ -6,6 +6,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import modelo.EmpleadoDAO;
 import modelo.pojo.DatosRegistroEmpleado;
+import modelo.pojo.Empleado;
 import modelo.pojo.Mensaje;
 
 /**
@@ -38,6 +40,34 @@ public class EmpleadoWS {
     public EmpleadoWS() {
     }
 
+    @GET
+    @Path("obtenerEmpleados")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Empleado> obtenerEmpleados(){
+        
+        return EmpleadoDAO.obtenerEmpleados();
+    }
+    
+    @GET
+    @Path("obtenerEmpleadoPorId")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Empleado obtenerInformacionEmpleado(String json){
+        if(!json.isEmpty()){
+            Gson gson = new Gson();
+            Empleado empleado = gson.fromJson(json, Empleado.class);
+            
+            if(empleado != null){
+                return EmpleadoDAO.obtenerEmpleadoPorId(empleado);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    
+    }
+    
     @POST
     @Path("registrarEmpleados")
     @Produces(MediaType.APPLICATION_JSON)
@@ -69,9 +99,12 @@ public class EmpleadoWS {
             DatosRegistroEmpleado datosEmpleado = gson.fromJson(json, DatosRegistroEmpleado.class);
             
             if(datosEmpleado.getEmpleado() != null || datosEmpleado.getPersona() != null){
-                
+                return EmpleadoDAO.editarInformacionEmpleado(datosEmpleado);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
-        return null;
     }
+    
+    
 }

@@ -6,6 +6,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="empleado">
+    
+    <select id="obtenerEmpleados" resultType="modelo.pojo.Empleado"> 
+        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado 
+        FROM empleados e 
+        INNER JOIN 
+        personas p ON e.persona=p.idPersona
+    </select>
+    
+    <select id="obtenerEmpleadoPorId" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado">
+        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado 
+        FROM empleados e 
+        INNER JOIN 
+        personas p ON e.persona=p.idPersona 
+        WHERE e.idEmpleado = #{idEmpleado}
+    </select>
+    
     <insert id="registrarEmpleado" parameterType="modelo.pojo.DatosRegistroEmpleado" statementType="CALLABLE">
         {CALL registrarEmpleado(
         #{persona.nombrePersona, mode=IN, jdbcType=VARCHAR},

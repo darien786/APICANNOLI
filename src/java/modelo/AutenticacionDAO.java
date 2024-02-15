@@ -26,7 +26,7 @@ public class AutenticacionDAO {
                
                if(sesionEmpleado != null){
                    mensaje.setError(false);
-                   mensaje.setMensaje("!Bienvenido ");
+                   mensaje.setMensaje("!Bienvenid@ " + sesionEmpleado.getNombreEmpleado() + "¡");
                    mensaje.setEmpleado(sesionEmpleado);
                }else{
                    mensaje.setMensaje("No se puede realizar la operación");
