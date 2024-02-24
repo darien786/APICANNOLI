@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="categoria">
+    <insert id="registrarCategoria" parameterType="modelo.pojo.Categoria">
+        INSERT INTO categorias(nombreCategoria, descripcion, estatus) 
+        VALUES(#{nombreCategoria}, #{descripcion}, 1)
+    </insert>
+    
+    <updatae id="editarCategoria" parameterType="modelo.pojo.Categoria">
+        UPDATE categorias SET 
+        nombreCategoria=#{nombreCategoria},
+        descripcion=#{descripcion},
+        estatus=#{estatus}
+    </updatae>
+    
+    <delete id="eliminarCategoria" parameterType="modelo.pojo.Categoria">
+        DELETE FROM categoria WHERE idCategoria=#{idCategoria}
+    </delete>
+</mapper>
