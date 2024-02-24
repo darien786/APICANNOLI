@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="autenticacion">
     
     <select id="inicioSesionEscritorio" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado" >
-        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado 
+        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.fotografia, e.rol, e.estatus, 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado, p.telefono 
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona 

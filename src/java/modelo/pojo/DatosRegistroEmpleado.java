@@ -10,15 +10,16 @@ package modelo.pojo;
  * @author cr7_k
  */
 public class DatosRegistroEmpleado {
+    
     private Persona persona;
     private Empleado empleado;
-    private int filasAfectadas;
+    private Integer filasAfectadas;
     private String error;
 
     public DatosRegistroEmpleado() {
     }
 
-    public DatosRegistroEmpleado(Persona persona, Empleado empleado, int filasAfectadas, String error) {
+    public DatosRegistroEmpleado(Persona persona, Empleado empleado, Integer filasAfectadas, String error) {
         this.persona = persona;
         this.empleado = empleado;
         this.filasAfectadas = filasAfectadas;
@@ -41,11 +42,11 @@ public class DatosRegistroEmpleado {
         this.empleado = empleado;
     }
 
-    public int getFilasAfectadas() {
+    public Integer getFilasAfectadas() {
         return filasAfectadas;
     }
 
-    public void setFilasAfectadas(int filasAfectadas) {
+    public void setFilasAfectadas(Integer filasAfectadas) {
         this.filasAfectadas = filasAfectadas;
     }
 

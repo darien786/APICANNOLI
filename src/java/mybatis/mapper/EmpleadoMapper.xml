@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="obtenerEmpleados" resultType="modelo.pojo.Empleado"> 
         SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado, p.telefono 
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="obtenerEmpleadoPorId" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado">
         SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado , p.telefono 
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona 
@@ -29,11 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{persona.nombrePersona, mode=IN, jdbcType=VARCHAR},
         #{persona.apellidoPaterno, mode=IN, jdbcType=VARCHAR},
         #{persona.apellidoMaterno, mode=IN, jdbcType=VARCHAR},
+        #{persona.sexo, mode=IN, jdbcType=VARCHAR},
+        #{persona.telefono, mode=IN, jdbcType=VARCHAR},
     
         #{empleado.curp, mode=IN, jdbcType=VARCHAR},
         #{empleado.username, mode=IN, jdbcType=VARCHAR},
         #{empleado.correo, mode=IN, jdbcType=VARCHAR},
         #{empleado.contrasenia, mode=IN, jdbcType=VARCHAR},
+        #{empleado.fotografia, mode=IN, jdbcType=VARCHAR},
         #{empleado.rol, mode=IN, jdbcType=INTEGER},
     
         #{filasAfectadas, mode=INOUT, jdbcType=INTEGER},
@@ -46,16 +49,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{empleado.idEmpleado, mode=IN, jdbcType=INTEGER},
             #{empleado.correo, mode=IN, jdbcType=VARCHAR},
             #{empleado.contrasenia, mode=IN, jdbcType=VARCHAR},
+            #{empleado.fotografia, mode=IN, jdbcType=VARCHAR},
             #{empleado.estatus, mode=IN, jdbcType=INTEGER},
             
             #{persona.idPersona, mode=IN, jdbcType=INTEGER},
             #{persona.nombrePersona, mode=IN, jdbcType=VARCHAR},
             #{persona.apellidoPaterno, mode=IN, jdbcType=VARCHAR},
             #{persona.apellidoMaterno, mode=IN, jdbcType=VARCHAR},
+            #{persona.sexo, mode=IN, jdbcType=VARCHAR},
+            #{persona.telefono, mode=IN, jdbcType=VARCHAR},
         
             #{filasAfectadas, mode=INOUT, jdbcType=INTEGER},
             #{error, mode=INOUT, jdbcType=VARCHAR}
         )}
     </update>
+    
+    
     
 </mapper>

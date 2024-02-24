@@ -27,6 +27,8 @@ public class EmpleadoDAO {
                 empleados = conexionBD.selectList("empleado.obtenerEmpleados");
             }catch(Exception e){
                 e.printStackTrace();
+            }finally{
+                conexionBD.close();
             }
         }
         return empleados;
@@ -52,8 +54,8 @@ public class EmpleadoDAO {
     }
     
     public static Mensaje registrarEmpleado(DatosRegistroEmpleado empleado){
-        Mensaje mensaje = null;
-        mensaje.setError(Boolean.TRUE);
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{

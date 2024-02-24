@@ -13,28 +13,29 @@ public class Empleado {
     private Integer idEmpleado;
     private Integer persona;
     private String curp;
-    private String username;
     private String correo;
+    private String username;
     private String contrasenia;
+    private String fotografia;
     private Integer rol;
     private Integer estatus;
     private String nombreEmpleado;
-
+    private String telefono;
+    
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, Integer persona, String curp, String username, String correo, String contrasenia, Integer rol, Integer estatus) {
+    public Empleado(Integer idEmpleado, Integer persona, String curp, String correo, String username, String contrasenia, String fotografia, Integer rol, Integer estatus) {
         this.idEmpleado = idEmpleado;
         this.persona = persona;
         this.curp = curp;
-        this.username = username;
         this.correo = correo;
+        this.username = username;
         this.contrasenia = contrasenia;
+        this.fotografia = fotografia;
         this.rol = rol;
         this.estatus = estatus;
     }
-
-    
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -60,14 +61,6 @@ public class Empleado {
         this.curp = curp;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -76,12 +69,28 @@ public class Empleado {
         this.correo = correo;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getContrasenia() {
         return contrasenia;
     }
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getFotografia() {
+        return fotografia;
+    }
+
+    public void setFotografia(String fotografia) {
+        this.fotografia = fotografia;
     }
 
     public Integer getRol() {
@@ -108,4 +117,11 @@ public class Empleado {
         this.nombreEmpleado = nombreEmpleado;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 }

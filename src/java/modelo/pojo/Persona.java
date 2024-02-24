@@ -14,6 +14,8 @@ public class Persona {
     private String nombrePersona;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private String sexo;
+    private String telefono;
     private Integer tipoPersona;
 
     public Persona() {
