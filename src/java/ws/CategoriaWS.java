@@ -5,14 +5,22 @@
  */
 package ws;
 
+import com.google.gson.Gson;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import modelo.CategoriaDAO;
+import modelo.pojo.Categoria;
+import modelo.pojo.Mensaje;
 
 /**
  * REST Web Service
@@ -31,23 +39,61 @@ public class CategoriaWS {
     public CategoriaWS() {
     }
 
-    /**
-     * Retrieves representation of an instance of ws.CategoriaWS
-     * @return an instance of java.lang.String
-     */
-    @GET
+    @POST
+    @Path("registrarCategoria")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * PUT method for updating or creating an instance of CategoriaWS
-     * @param content representation for the resource
-     */
-    @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public Mensaje registrarCategoria(String json){
+        if(json.isEmpty()){
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }else{
+            Gson gson = new Gson();
+            Categoria categoria = gson.fromJson(json, Categoria.class);
+            
+            if(categoria != null){
+                return CategoriaDAO.registrarCategoria(categoria);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
+    }
+    
+    @PUT
+    @Path("editarCategoria")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje modificarCategoria(String json){
+        if(json.isEmpty()){
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }else{
+            Gson gson = new Gson();
+            Categoria categoria = gson.fromJson(json, Categoria.class);
+            
+            if(categoria != null){
+                return CategoriaDAO.modificarCategoria(categoria);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
+    
+    }
+    
+    @DELETE
+    @Path("eliminarCategoria")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarCategoria(String json){
+        if(json.isEmpty()){
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }else{
+            Gson gson = new Gson();
+            Categoria categoria = gson.fromJson(json, Categoria.class);
+            
+            if(categoria.getIdCategoria() != null){
+                return CategoriaDAO.eliminarCategoria(categoria);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
     }
 }
