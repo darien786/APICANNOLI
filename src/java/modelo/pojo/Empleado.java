@@ -22,11 +22,12 @@ public class Empleado {
     private String nombreEmpleado;
     private String telefono;
     private String nombreRol;
+    private String nombreEstatus;
     
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, Integer persona, String curp, String correo, String username, String contrasenia, String fotografia, Integer rol, Integer estatus, String nombreEmpleado, String telefono, String nombreRol) {
+    public Empleado(Integer idEmpleado, Integer persona, String curp, String correo, String username, String contrasenia, String fotografia, Integer rol, Integer estatus, String nombreEmpleado, String telefono, String nombreRol, String nombreEstatus) {
         this.idEmpleado = idEmpleado;
         this.persona = persona;
         this.curp = curp;
@@ -39,9 +40,8 @@ public class Empleado {
         this.nombreEmpleado = nombreEmpleado;
         this.telefono = telefono;
         this.nombreRol = nombreRol;
+        this.nombreEstatus = nombreEstatus;
     }
-
-    
 
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -138,6 +138,12 @@ public class Empleado {
     public void setNombreRol(String nombreRol) {
         this.nombreRol = nombreRol;
     }
-    
-    
+
+    public String getNombreEstatus() {
+        return nombreEstatus;
+    }
+
+    public void setNombreEstatus(String nombreEstatus) {
+        this.nombreEstatus = nombreEstatus;
+    }
 }
