@@ -9,10 +9,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="obtenerEmpleados" resultType="modelo.pojo.Empleado"> 
         SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado, p.telefono 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado, p.telefono, es.nombreEstatus, ro.nombreRol 
         FROM empleados e 
         INNER JOIN 
-        personas p ON e.persona=p.idPersona
+        personas p ON e.persona=p.idPersona 
+        INNER JOIN 
+        estatus es ON es.idEstatus = e.estatus 
+        INNER JOIN 
+        roles ro ON ro.idRol = e.rol
+        
     </select>
     
     <select id="obtenerEmpleadoPorId" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado">

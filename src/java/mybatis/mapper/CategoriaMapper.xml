@@ -11,12 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES(#{nombreCategoria}, #{descripcion}, 1)
     </insert>
     
-    <updatae id="editarCategoria" parameterType="modelo.pojo.Categoria">
+    <update id="editarCategoria" parameterType="modelo.pojo.Categoria">
         UPDATE categorias SET 
         nombreCategoria=#{nombreCategoria},
         descripcion=#{descripcion},
         estatus=#{estatus}
-    </updatae>
+    </update>
     
     <delete id="eliminarCategoria" parameterType="modelo.pojo.Categoria">
         DELETE FROM categoria WHERE idCategoria=#{idCategoria}

@@ -29,7 +29,7 @@ public class AutenticacionDAO {
                    mensaje.setMensaje("!Bienvenid@ " + sesionEmpleado.getNombreEmpleado() + "¡");
                    mensaje.setEmpleado(sesionEmpleado);
                }else{
-                   mensaje.setMensaje("No se puede realizar la operación");
+                   mensaje.setMensaje("Usuario y/o contraseñas incorrectas");
                }
            }catch(Exception e){
                mensaje.setMensaje("Error al realizar la operacion, favor de intentarlo mas tarde.");
