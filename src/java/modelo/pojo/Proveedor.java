@@ -13,20 +13,21 @@ public class Proveedor {
     private Integer idProveedor;
     private String nombreProveedor;
     private String telefono;
-    private String compania;
+    private String empresa;
     private Integer estatus;
     
 
     public Proveedor() {
     }
 
-    public Proveedor(Integer idProveedor, String nombreProveedor, String telefono, String compania, Integer estatus) {
+    public Proveedor(Integer idProveedor, String nombreProveedor, String telefono, String empresa, Integer estatus) {
         this.idProveedor = idProveedor;
         this.nombreProveedor = nombreProveedor;
         this.telefono = telefono;
-        this.compania = compania;
+        this.empresa = empresa;
         this.estatus = estatus;
     }
+
 
     public Integer getIdProveedor() {
         return idProveedor;
@@ -52,12 +53,12 @@ public class Proveedor {
         this.telefono = telefono;
     }
 
-    public String getCompania() {
-        return compania;
+    public String getEmpresa() {
+        return empresa;
     }
 
-    public void setCompania(String compania) {
-        this.compania = compania;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     public Integer getEstatus() {

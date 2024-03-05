@@ -7,20 +7,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="proveedor">
     <select id="obtenerProveedores" resultType="modelo.pojo.Proveedor">
-        SELECT idProveedor, nombreProveedor, telefono, compania, estatus 
+        SELECT idProveedor, nombreProveedor, telefono, empresa, estatus 
         FROM proveedores
     </select>
     
     <insert id="registrarProveedor" parameterType="modelo.pojo.Proveedor">
-        INSERT INTO proveedores(nombreProveedor, telefono, compania, estatus) 
-        VALUES(#{nombreProveedor}, #{telefono}, #{compania}, 1)
+        INSERT INTO proveedores(nombreProveedor, telefono, empresa, estatus) 
+        VALUES(#{nombreProveedor}, #{telefono}, #{empresa}, 1)
     </insert>
     
     <update id="editarProveedor" parameterType="modelo.pojo.Proveedor">
         UPDATE proveedores SET 
         nombreProveedor=#{nombreProveedor},
         telefono=#{telefono},
-        compania=#{compania},
+        empresa=#{empresa},
         estatus=#{estatus}  
         WHERE idProveedor=#{idProveedor}
     </update>
