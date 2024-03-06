@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Proveedor;
 import mybatis.MyBatisUtil;
@@ -15,6 +17,24 @@ import org.apache.ibatis.session.SqlSession;
  * @author cr7_k
  */
 public class ProveedorDAO {
+    
+    public static List<Proveedor> obtenerProveedores(){
+        List<Proveedor> listaProveedores = new ArrayList<>();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                
+                listaProveedores = conexionBD.selectList("proveedor.obtenerProveedores");
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }
+        
+        return listaProveedores;
+    }
     
     public static Mensaje registrarProveedor(Proveedor proveedor){
         Mensaje mensaje = new Mensaje();

@@ -21,6 +21,7 @@ import javax.ws.rs.core.Response;
 import modelo.EmpleadoDAO;
 import modelo.pojo.DatosRegistroEmpleado;
 import modelo.pojo.Empleado;
+import modelo.pojo.Estatus;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Persona;
 
@@ -41,6 +42,15 @@ public class EmpleadoWS {
     public EmpleadoWS() {
     }
 
+    @GET
+    @Path("obtenerEstatus")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Estatus> obtenerEstatus(){
+        
+        return EmpleadoDAO.obtenerEstatus();
+    }
+    
     @GET
     @Path("obtenerEmpleados")
     @Produces(MediaType.APPLICATION_JSON)

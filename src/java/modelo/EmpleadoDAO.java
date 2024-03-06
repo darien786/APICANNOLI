@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.pojo.DatosRegistroEmpleado;
 import modelo.pojo.Empleado;
+import modelo.pojo.Estatus;
 import modelo.pojo.Mensaje;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -18,7 +19,23 @@ import org.apache.ibatis.session.SqlSession;
  * @author cr7_k
  */
 public class EmpleadoDAO {
- 
+    
+    public static List<Estatus> obtenerEstatus(){
+        List<Estatus> listaEstatus = new ArrayList<>();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                listaEstatus = conexionBD.selectList("empleado.obtenerEstatus");
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }
+        
+        return listaEstatus;
+    }
+    
     public static List<Empleado> obtenerEmpleados(){
         List<Empleado> empleados = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();

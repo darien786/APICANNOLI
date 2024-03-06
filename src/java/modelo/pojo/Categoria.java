@@ -14,15 +14,17 @@ public class Categoria {
     private String nombreCategoria;
     private String descripcion;
     private Integer estatus;
-
+    private String nombreEstatus;
+    
     public Categoria() {
     }
 
-    public Categoria(Integer idCategoria, String nombreCategoria, String descripcion, Integer estatus) {
+    public Categoria(Integer idCategoria, String nombreCategoria, String descripcion, Integer estatus, String nombreEstatus) {
         this.idCategoria = idCategoria;
         this.nombreCategoria = nombreCategoria;
         this.descripcion = descripcion;
         this.estatus = estatus;
+        this.nombreEstatus = nombreEstatus;
     }
 
     public Integer getIdCategoria() {
@@ -55,5 +57,14 @@ public class Categoria {
 
     public void setEstatus(Integer estatus) {
         this.estatus = estatus;
+    }    
+  
+    public String getNombreEstatus() {
+        return nombreEstatus;
     }
+
+    public void setNombreEstatus(String nombreEstatus) {
+        this.nombreEstatus = nombreEstatus;
+    }
+    
 }

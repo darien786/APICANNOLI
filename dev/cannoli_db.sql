@@ -28,7 +28,10 @@ CREATE TABLE `categorias` (
   `idCategoria` int NOT NULL AUTO_INCREMENT,
   `nombreCategoria` varchar(30) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`idCategoria`)
+  `estatus` int DEFAULT NULL,
+  PRIMARY KEY (`idCategoria`),
+  KEY `estatus` (`estatus`),
+  CONSTRAINT `categorias_ibfk_1` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,36 +42,6 @@ CREATE TABLE `categorias` (
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `clientes`
---
-
-DROP TABLE IF EXISTS `clientes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clientes` (
-  `idCliente` int NOT NULL AUTO_INCREMENT,
-  `persona` int DEFAULT NULL,
-  `telefono` varchar(10) NOT NULL,
-  `correo` varchar(30) NOT NULL,
-  `contrasenia` varchar(16) DEFAULT NULL,
-  `fechaNacimiento` date DEFAULT NULL,
-  PRIMARY KEY (`idCliente`),
-  UNIQUE KEY `correo` (`correo`),
-  KEY `persona` (`persona`),
-  CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`persona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clientes`
---
-
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -85,6 +58,7 @@ CREATE TABLE `empleados` (
   `correo` varchar(30) NOT NULL,
   `username` varchar(30) NOT NULL,
   `contrasenia` varchar(30) NOT NULL,
+  `fotografia` varchar(255) NOT NULL,
   `rol` int DEFAULT NULL,
   `estatus` int DEFAULT NULL,
   PRIMARY KEY (`idEmpleado`),
@@ -97,7 +71,7 @@ CREATE TABLE `empleados` (
   CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`persona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `empleados_ibfk_2` FOREIGN KEY (`rol`) REFERENCES `roles` (`idRol`),
   CONSTRAINT `empleados_ibfk_3` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,8 +80,38 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,3,'asdfghkloiuytrewqt','santi@gmai.com','santi765','password',1,1);
+INSERT INTO `empleados` VALUES (1,1,'ASDFGHJKLQWERTYUIO','dar@gmail.com','dar12','12345','C:/codigo',1,1),(2,5,'ASDFGHZXCVBN','filete@gmail.com','qwer12','123456','C:/codig/tw/',1,1),(5,8,'ASDFGHZ','filete12@gmail.com','12345678','123456','C:/codig/tw/',1,1),(6,9,'ASDFGHZo','filete123@gmail.com','1234567','123456','C:/codig/tw/',1,1),(7,11,'ASDFGHZo1','filete1234@gmail.com','12345698','123456','C:/codig/tw/',1,1),(11,16,'ASDFa','apocosi@gmail.com','122','1234567','C:/file/file',1,2);
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entregas`
+--
+
+DROP TABLE IF EXISTS `entregas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entregas` (
+  `idEntrega` int NOT NULL AUTO_INCREMENT,
+  `fechaEntrega` date NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `empleado` int DEFAULT NULL,
+  `proveedor` int DEFAULT NULL,
+  PRIMARY KEY (`idEntrega`),
+  KEY `empleado` (`empleado`),
+  KEY `proveedor` (`proveedor`),
+  CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`empleado`) REFERENCES `empleados` (`idEmpleado`),
+  CONSTRAINT `entregas_ibfk_2` FOREIGN KEY (`proveedor`) REFERENCES `proveedores` (`idProveedor`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entregas`
+--
+
+LOCK TABLES `entregas` WRITE;
+/*!40000 ALTER TABLE `entregas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `entregas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -135,6 +139,35 @@ INSERT INTO `estatus` VALUES (1,'Activo'),(2,'Inactivo');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pedido_producto`
+--
+
+DROP TABLE IF EXISTS `pedido_producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pedido_producto` (
+  `idProducto` int NOT NULL,
+  `numeroPedido` int NOT NULL,
+  `precio` float(20,4) NOT NULL,
+  `cantidad` int NOT NULL,
+  `total` int NOT NULL,
+  PRIMARY KEY (`idProducto`,`numeroPedido`),
+  KEY `numeroPedido` (`numeroPedido`),
+  CONSTRAINT `pedido_producto_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
+  CONSTRAINT `pedido_producto_ibfk_2` FOREIGN KEY (`numeroPedido`) REFERENCES `pedidos` (`numeroPedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pedido_producto`
+--
+
+LOCK TABLES `pedido_producto` WRITE;
+/*!40000 ALTER TABLE `pedido_producto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pedido_producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pedidos`
 --
 
@@ -142,16 +175,15 @@ DROP TABLE IF EXISTS `pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedidos` (
-  `idPedido` int NOT NULL AUTO_INCREMENT,
-  `numeroPedido` varchar(8) NOT NULL,
+  `numeroPedido` int NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
   `cliente` int DEFAULT NULL,
-  `monto` float(8,4) NOT NULL,
+  `formaPago` varchar(50) NOT NULL,
   `descripcion` varchar(255) NOT NULL,
-  `fotografia` blob,
-  PRIMARY KEY (`idPedido`),
+  `fotografia` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`numeroPedido`),
   KEY `cliente` (`cliente`),
-  CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`idCliente`)
+  CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente`) REFERENCES `personas` (`idPersona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -176,11 +208,13 @@ CREATE TABLE `personas` (
   `nombrePersona` varchar(20) NOT NULL,
   `apellidoPaterno` varchar(20) NOT NULL,
   `apellidoMaterno` varchar(20) NOT NULL,
+  `sexo` varchar(15) NOT NULL,
+  `telefono` varchar(10) NOT NULL,
   `tipoPersona` int DEFAULT NULL,
   PRIMARY KEY (`idPersona`),
   KEY `tipoPersona` (`tipoPersona`),
   CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`tipoPersona`) REFERENCES `tipopersonas` (`idTipoPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,8 +223,44 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (3,'santiago','perez','perez',2);
+INSERT INTO `personas` VALUES (1,'Erick','Lopez','Mendez','Masculino','2233445566',1),(5,'Crhistian','Filete','Lopez','M','2244556644',1),(8,'Crhistian','Filete','Lopez','M','2244556644',1),(9,'Crhistian','Filete','Lopez','M','2244556644',1),(11,'Crhistian','Filete','Lopez','M','2244556644',1),(16,'Dorian','Dorian','Dorian','Masculino','2244556644',1);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productos` (
+  `idProducto` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(35) NOT NULL,
+  `codigo` varchar(16) NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `precio` float(10,4) NOT NULL,
+  `cantidad` int NOT NULL,
+  `fechaElaboracion` date NOT NULL,
+  `fechaVencimiento` date NOT NULL,
+  `fotografia` varchar(255) NOT NULL,
+  `estatus` int DEFAULT NULL,
+  `categoria` int DEFAULT NULL,
+  PRIMARY KEY (`idProducto`),
+  KEY `estatus` (`estatus`),
+  KEY `categoria` (`categoria`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`),
+  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`idCategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productos`
+--
+
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -203,7 +273,8 @@ DROP TABLE IF EXISTS `proveedores`;
 CREATE TABLE `proveedores` (
   `idProveedor` int NOT NULL AUTO_INCREMENT,
   `nombreProveedor` varchar(30) NOT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
+  `telefono` varchar(10) NOT NULL,
+  `empresa` varchar(50) NOT NULL,
   `estatus` int DEFAULT NULL,
   PRIMARY KEY (`idProveedor`),
   KEY `estatus` (`estatus`),
@@ -229,7 +300,7 @@ DROP TABLE IF EXISTS `roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
   `idRol` int NOT NULL AUTO_INCREMENT,
-  `nombreRol` varchar(40) NOT NULL,
+  `nombreRol` varchar(20) NOT NULL,
   PRIMARY KEY (`idRol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -240,7 +311,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Administrador General'),(2,'Administrador Comercial');
+INSERT INTO `roles` VALUES (1,'Comercial'),(2,'General');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,8 +335,37 @@ CREATE TABLE `tipopersonas` (
 
 LOCK TABLES `tipopersonas` WRITE;
 /*!40000 ALTER TABLE `tipopersonas` DISABLE KEYS */;
-INSERT INTO `tipopersonas` VALUES (1,'Cliente'),(2,'Empleado');
+INSERT INTO `tipopersonas` VALUES (1,'Empleado'),(2,'Cliente');
 /*!40000 ALTER TABLE `tipopersonas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `venta_producto`
+--
+
+DROP TABLE IF EXISTS `venta_producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `venta_producto` (
+  `numeroVenta` int NOT NULL,
+  `idProducto` int NOT NULL,
+  `precio` float(20,4) NOT NULL,
+  `cantidad` int NOT NULL,
+  `total` int NOT NULL,
+  PRIMARY KEY (`numeroVenta`,`idProducto`),
+  KEY `idProducto` (`idProducto`),
+  CONSTRAINT `venta_producto_ibfk_1` FOREIGN KEY (`numeroVenta`) REFERENCES `ventas` (`numeroVenta`),
+  CONSTRAINT `venta_producto_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venta_producto`
+--
+
+LOCK TABLES `venta_producto` WRITE;
+/*!40000 ALTER TABLE `venta_producto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `venta_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -276,16 +376,13 @@ DROP TABLE IF EXISTS `ventas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ventas` (
-  `idVentas` int NOT NULL AUTO_INCREMENT,
-  `numeroVenta` varchar(8) NOT NULL,
-  `cantidad` int NOT NULL,
-  `precio` float(8,4) NOT NULL,
+  `numeroVenta` int NOT NULL AUTO_INCREMENT,
   `fechaVenta` date NOT NULL,
   `formaPago` varchar(50) NOT NULL,
   `pedido` int DEFAULT NULL,
-  PRIMARY KEY (`idVentas`),
+  PRIMARY KEY (`numeroVenta`),
   KEY `pedido` (`pedido`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`idPedido`)
+  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`numeroPedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -315,12 +412,14 @@ CREATE DEFINER=`DBA_General`@`localhost` PROCEDURE `modificarEmpleado`(
 	IN _idEmpleado INT,
     IN _correo VARCHAR (35),
     IN _contrasenia VARCHAR (18),
+    IN _fotografia VARCHAR(255),
     IN _estatus INT,
     IN _persona INT,
     IN _nombrePersona VARCHAR(35),
     IN _apellidoPaterno VARCHAR(35),
     IN _apellidoMaterno VARCHAR(35),
-    
+    IN _sexo VARCHAR(15),
+    IN _telefono VARCHAR(10),
     
     INOUT _filasAfectadas INT,
     INOUT _error VARCHAR(255)
@@ -338,8 +437,10 @@ BEGIN
 			UPDATE personas SET 
             nombrePersona=IFNULL(_nombrePersona, nombrePersona),
             apellidoPaterno=IFNULL(_apellidoPaterno, apellidoPaterno),
-            apellidoMaterno=IFNULL(_apellidoMaterno, apellidoMaterno) 
-            WHERE idEmpleado = _idEmpleado;
+            apellidoMaterno=IFNULL(_apellidoMaterno, apellidoMaterno),
+            sexo=IFNULL(_sexo, sexo),
+            telefono=IFNULL(_telefono, telefono)
+            WHERE idPersona = _persona;
             
             SET @filasPersona = ROW_COUNT();
         ELSE
@@ -350,13 +451,19 @@ BEGIN
     
     BEGIN
 		IF EXISTS(SELECT * FROM empleados WHERE idEmpleado = _idEmpleado) THEN
-			UPDATE empleados SET 
-            correo = IFNULL(_correo, correo),
-            contrasenia = IFNULL(_contrasenia, contrasenia),
-            estatus = IFNULL(_estatus, estatus)
-            WHERE idEmpleado = _idEmpleado;
+			IF NOT EXISTS(SELECT * FROM empleados WHERE correo=_correo AND idEmpleado !=_idEmpleado) THEN 
+				UPDATE empleados SET 
+				correo = IFNULL(_correo, correo),
+				contrasenia = IFNULL(_contrasenia, contrasenia),
+                fotografia = IFNULL(_fotografia, fotografia),
+				estatus = IFNULL(_estatus, estatus)
+				WHERE idEmpleado = _idEmpleado;
             
-            SET @filasEmpleado = ROW_COUNT();
+				SET @filasEmpleado = ROW_COUNT();
+            ELSE
+				ROLLBACK;
+                SET _error = CONCAT(_error, 'Correo repetido, favor de cambiarlo');
+            END IF;
         ELSE
 			ROLLBACK;
             SET _error = CONCAT(_error, 'El empleado ingresado no se encuentra en la base de datos.');
@@ -385,10 +492,13 @@ CREATE DEFINER=`DBA_General`@`localhost` PROCEDURE `registrarEmpleado`(
 	IN _nombrePersona VARCHAR(20),
     IN _apellidoPaterno VARCHAR(20),
     IN _apellidoMaterno VARCHAR(20),
+    IN _sexo VARCHAR(15),
+    IN _telefono VARCHAR(10),
     IN _curp VARCHAR(18),
     IN _username VARCHAR(35),
     IN _correo VARCHAR(100),
     IN _contrasenia VARCHAR(35),
+    IN _fotografia VARCHAR(255),
     IN _rol INT,
     
     INOUT _filasAfectadas INT,
@@ -405,8 +515,8 @@ BEGIN
 		
         BEGIN
 			
-            INSERT INTO personas(nombrePersona, apellidoPaterno, apellidoMaterno, tipoPersona) 
-            VALUES (_nombrePersona, _apellidoPaterno, _apellidoMaterno, 2);
+            INSERT INTO personas(nombrePersona, apellidoPaterno, apellidoMaterno, sexo, telefono, tipoPersona) 
+            VALUES (_nombrePersona, _apellidoPaterno, _apellidoMaterno, _sexo, _telefono, 1);
             
             SET @idPersona = LAST_INSERT_ID();
             SET @filasPersona = ROW_COUNT();
@@ -415,24 +525,24 @@ BEGIN
         
         BEGIN
         
-			IF EXISTS (SELECT * FROM empleados WHERE username = _username) THEN
+			IF EXISTS (SELECT * FROM empleados WHERE username = _username AND correo=_correo AND curp=_curp) THEN
 				ROLLBACK;
-                SET _error = CONCAT(_error, 'User-name repetido, favor de cambiarlo');
+                SET _error = CONCAT(_error, 'Datos repetidos, favor de cambiarlos');
             ELSE
 				IF EXISTS(SELECT * FROM roles WHERE _rol=idRol) THEN
-					INSERT INTO empleados(persona, curp, correo, username, contrasenia, rol, estatus) 
-					VALUES(@idPersona, _curp, _correo, _username, _contrasenia, _rol, 1);
+					INSERT INTO empleados(persona, curp, correo, username, contrasenia, fotografia, rol, estatus) 
+					VALUES(@idPersona, _curp, _correo, _username, _contrasenia, _fotografia, _rol, 1);
                     
-                    SET @filasEmpleados = ROW_COUNT();
-                    SET _filasAfectadas = @filasEmpleado + @filasPersona;
+                    SET @filasEmpleado = ROW_COUNT();
+                   
                 ELSE
 					ROLLBACK;
                     SET _error = CONCAT(_error, 'El rol no existe en la base de datos');
                 END IF;
             END IF;
         END;
-        
-        COMMIT;
+		SET _filasAfectadas = @filasEmpleado + @filasPersona;
+        COMMIT; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -449,4 +559,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-15 21:40:17
+-- Dump completed on 2024-03-06 17:49:05

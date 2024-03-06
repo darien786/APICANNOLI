@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import modelo.pojo.Categoria;
 import modelo.pojo.Mensaje;
 import mybatis.MyBatisUtil;
@@ -15,6 +17,25 @@ import org.apache.ibatis.session.SqlSession;
  * @author cr7_k
  */
 public class CategoriaDAO {
+    
+    public static List<Categoria> obtenerCategorias(){
+        List<Categoria> listaCategorias = new ArrayList<>();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                
+                listaCategorias = conexionBD.selectList("categoria.obtenerCategorias");
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }
+        
+        return listaCategorias;
+    }
+    
     public static Mensaje registrarCategoria(Categoria categoria){
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);

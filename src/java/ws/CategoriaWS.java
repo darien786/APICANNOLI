@@ -6,6 +6,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -37,6 +38,16 @@ public class CategoriaWS {
      * Creates a new instance of CategoriaWS
      */
     public CategoriaWS() {
+    }
+    
+    @GET
+    @Path("obtenerCategorias")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Categoria> obtenerCategorias(){
+       
+        return CategoriaDAO.obtenerCategorias();
+        
     }
 
     @POST

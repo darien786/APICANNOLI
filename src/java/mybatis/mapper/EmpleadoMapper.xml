@@ -7,6 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="empleado">
     
+    <select id="obtenerEstatus" resultType="modelo.pojo.Estatus">
+        SELECT idEstatus, nombreEstatus 
+        FROM estatus
+    </select>
+    
     <select id="obtenerEmpleados" resultType="modelo.pojo.Empleado"> 
         SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
         CONCAT(p.nombrePersona, " ", p.apellidoPaterno, " ", p.apellidoMaterno) AS nombreEmpleado, p.telefono, es.nombreEstatus, ro.nombreRol 

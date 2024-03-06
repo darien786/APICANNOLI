@@ -15,7 +15,7 @@ public class Proveedor {
     private String telefono;
     private String empresa;
     private Integer estatus;
-    
+    private String nombreEstatus;
 
     public Proveedor() {
     }
@@ -68,5 +68,15 @@ public class Proveedor {
     public void setEstatus(Integer estatus) {
         this.estatus = estatus;
     }
+
+    public String getNombreEstatus() {
+        return nombreEstatus;
+    }
+
+    public void setNombreEstatus(String nombreEstatus) {
+        this.nombreEstatus = nombreEstatus;
+    }
+    
+    
     
 }

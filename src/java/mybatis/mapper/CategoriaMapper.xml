@@ -7,8 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="categoria">
     <select id="obtenerCategorias" reusltType="modelo.pojo.Categoria">
-        SELECT idCategoria, nombreCategoria, descripcion, estatus 
-        FROM categorias
+        SELECT ca.idCategoria, ca.nombreCategoria, ca.descripcion, ca.estatus, es.nombreEstatus  
+        FROM categorias ca 
+        INNER JOIN 
+        estatus es ON ca.estatus = es.idEstatus
     </select>
     
     <insert id="registrarCategoria" parameterType="modelo.pojo.Categoria">
