@@ -10,6 +10,7 @@ package modelo.pojo;
  * @author cr7_k
  */
 public class Persona {
+    
     private Integer idPersona;
     private String nombrePersona;
     private String apellidoPaterno;
@@ -21,15 +22,15 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(Integer idPersona, String nombrePersona, String apellidoPaterno, String apellidoMaterno, Integer tipoPersona) {
+    public Persona(Integer idPersona, String nombrePersona, String apellidoPaterno, String apellidoMaterno, String sexo, String telefono, Integer tipoPersona) {
         this.idPersona = idPersona;
         this.nombrePersona = nombrePersona;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.sexo = sexo;
+        this.telefono = telefono;
         this.tipoPersona = tipoPersona;
     }
-
-    
     
     public Integer getIdPersona() {
         return idPersona;
@@ -63,6 +64,22 @@ public class Persona {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public Integer getTipoPersona() {
         return tipoPersona;
     }
@@ -70,5 +87,5 @@ public class Persona {
     public void setTipoPersona(Integer tipoPersona) {
         this.tipoPersona = tipoPersona;
     }
-    
+
 }

@@ -7,6 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="empleado">
     
+    <select id= "obtenerRoles" resultType="modelo.pojo.Rol">
+        SELECT idRol, nombreRol 
+        FROM roles
+    </select>
+    
     <select id="obtenerEstatus" resultType="modelo.pojo.Estatus">
         SELECT idEstatus, nombreEstatus 
         FROM estatus
@@ -25,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="obtenerEmpleadoPorId" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado">
-        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
+        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, fotografia, 
         CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado , p.telefono 
         FROM empleados e 
         INNER JOIN 

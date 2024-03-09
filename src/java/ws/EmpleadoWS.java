@@ -24,6 +24,7 @@ import modelo.pojo.Empleado;
 import modelo.pojo.Estatus;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Persona;
+import modelo.pojo.Rol;
 
 /**
  * REST Web Service
@@ -49,6 +50,14 @@ public class EmpleadoWS {
     public List<Estatus> obtenerEstatus(){
         
         return EmpleadoDAO.obtenerEstatus();
+    }
+    
+    @GET
+    @Path("obtenerRoles")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Rol> obtenerRoles(){
+        
+        return EmpleadoDAO.obtenerRoles();
     }
     
     @GET

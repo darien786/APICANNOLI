@@ -5,14 +5,19 @@
  */
 package modelo;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.pojo.DatosRegistroEmpleado;
 import modelo.pojo.Empleado;
 import modelo.pojo.Estatus;
 import modelo.pojo.Mensaje;
+import modelo.pojo.Rol;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
+import utils.Utilidades;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -36,7 +41,24 @@ public class EmpleadoDAO {
         return listaEstatus;
     }
     
+    public static List<Rol> obtenerRoles(){
+        List<Rol> listaRoles = new ArrayList<>();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                
+                listaRoles = conexionBD.selectList("empleado.obtenerRoles");
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+        return listaRoles;
+    }
+    
     public static List<Empleado> obtenerEmpleados(){
+        
         List<Empleado> empleados = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
@@ -59,12 +81,15 @@ public class EmpleadoDAO {
                 
                 empleadoSolicitado = conexionBD.selectOne("empleado.obtenerEmpleadoPorId", empleado);
                 
+                File image = new File(empleadoSolicitado.getFotografia());
+                
+                empleadoSolicitado.setFotografiaBase64(Utilidades.convertirImagenABase64(image));
+                
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
                 conexionBD.close();
             }
-        
         }
         
         return empleadoSolicitado;
@@ -79,6 +104,9 @@ public class EmpleadoDAO {
                 
                 conexionBD.insert("empleado.registrarEmpleado", empleado);
                 conexionBD.commit();
+                
+                Image image = Utilidades.decodificarImagenBase64(empleado.getEmpleado().getFotografiaBase64());
+                Utilidades.guardarImagen(empleado.getEmpleado().getFotografia(), image);
                 
                 if(empleado.getFilasAfectadas() > 0 && empleado.getError().isEmpty()){
                     mensaje.setError(false);

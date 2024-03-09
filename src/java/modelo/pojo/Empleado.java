@@ -23,6 +23,8 @@ public class Empleado {
     private String telefono;
     private String nombreRol;
     private String nombreEstatus;
+    private String fotografiaBase64;
+    
     
     public Empleado() {
     }
@@ -146,4 +148,14 @@ public class Empleado {
     public void setNombreEstatus(String nombreEstatus) {
         this.nombreEstatus = nombreEstatus;
     }
+
+    public String getFotografiaBase64() {
+        return fotografiaBase64;
+    }
+
+    public void setFotografiaBase64(String fotografiaBase64) {
+        this.fotografiaBase64 = fotografiaBase64;
+    }
+    
+    
 }
