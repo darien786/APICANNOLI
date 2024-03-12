@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="producto">
+    <select id="obtenerProductos" resultType="modelo.pojo.Producto">
+        SELECT p.idProducto, p.nombre, p.codigo, p.descripcion, p.precio, p.cantidad, p.fechaElaboracion, p.fechaVencimiento, p.fotografia, p.estatus, p.categoria, 
+        e.nombreEstatus, c.nombreCategoria
+        FROM productos 
+        INNER JOIN 
+        categorias c ON c.idCategoria = p.categoria 
+        INNER JOIN 
+        estatus e ON e.idEstatus = p.estatus
+    </select>
+    
+    <select id="obtenerProductoPorId" resultType="modelo.pojo.Producto" parameterType="int">
+        SELECT idProducto, nombre, codigo, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria 
+        FROM productos 
+        WHERE idProducto = #{idProducto}
+    </select>
+    
+    <insert id="registrarProducto" parameterType="modelo.pojo.Producto">
+        INSERT INTO productos (nombre, codigo, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria) 
+        VALUES(#{nombre}, #{codigo}, #{descripcion}, #{precio}, #{cantidad}, #{fechaElaboracion}, #{fechaVencimiento}, #{fotografia}, 1, #{categoria})
+    </insert>
+    
+    <update id="editarProducto" parameterType="modelo.pojo.Producto">
+        UPDATE productos SET 
+        nombre=#{nombre},
+        codigo=#{codigo},
+        descripcion=#{descripcion},
+        precio=#{precio},
+        cantidad=#{cantidad},
+        fechaElaboracion=#{fechaElaboracion},
+        fechaVencimiento=#{fechaVencimiento},
+        fotografia=#{fotografia},
+        estatus=#{estatus},
+        categoria=#{categoria} 
+        WHERE idProducto = #{idProducto}
+    </update>
+    
+    <delete id="eliminarProducto" parameterType="modelo.pojo.Producto">
+        DELETE FROM productos WHERE idProducto = #{idProducto}
+    </delete>
+</mapper>
