@@ -6,9 +6,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="categoria">
-    <select id="obtenerCategorias" reusltType="modelo.pojo.Categoria">
+    <select id="obtenerCategorias" resultType="modelo.pojo.Categoria">
         SELECT ca.idCategoria, ca.nombreCategoria, ca.descripcion, ca.estatus, es.nombreEstatus  
         FROM categorias ca 
+        INNER JOIN 
+        estatus es ON ca.estatus = es.idEstatus
+    </select>
+    
+    <select id="obtenerCategoriaPorId" resultType="modelo.pojo.Categoria">
+        SELECT ca.idCategoria, ca.nombreCategoria, ca.descripcion, ca.estatus, es.nombreEstatus 
+        FROM categoria ca 
         INNER JOIN 
         estatus es ON ca.estatus = es.idEstatus
     </select>
@@ -22,7 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE categorias SET 
         nombreCategoria=#{nombreCategoria},
         descripcion=#{descripcion},
-        estatus=#{estatus}
+        estatus=#{estatus} 
+        WHERE idCategoria = #{idCategoria}
     </update>
     
     <delete id="eliminarCategoria" parameterType="modelo.pojo.Categoria">

@@ -5,12 +5,16 @@
  */
 package modelo;
 
+import java.awt.Toolkit;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.image.Image;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Producto;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
+import utils.Utilidades;
 
 /**
  *
@@ -25,6 +29,9 @@ public class ProductoDAO {
             try{
             
                 producto = conexionBD.selectOne("producto.obtenerProductoPorId", idProducto);
+                
+                File file = new File(producto.getFotografia());
+                producto.setFotografiaBase64(Utilidades.convertirImagenABase64(file));
                 
             }catch(Exception e){
                 e.printStackTrace();
@@ -42,7 +49,7 @@ public class ProductoDAO {
         if(conexionBD != null){
             try{
                 
-                listaProductos = conexionBD.selectList("producto.obtenerListaProductos");
+                listaProductos = conexionBD.selectList("producto.obtenerProductos");
                 
             }catch(Exception e){
                 e.printStackTrace();
@@ -60,6 +67,9 @@ public class ProductoDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
+                
+                Image image = Utilidades.decodificarImagenBase64(producto.getFotografiaBase64());
+                Utilidades.guardarImagen(producto.getFotografia(), image);
                 
                 int filasAfectadas = conexionBD.insert("producto.registrarProducto", producto);
                 conexionBD.commit();
@@ -92,7 +102,7 @@ public class ProductoDAO {
         if(conexionBD != null){
             try{
                 
-                int filasAfectadas = conexionBD.update("producto.editarProducto", mensaje);
+                int filasAfectadas = conexionBD.update("producto.editarProducto", producto);
                 conexionBD.commit();
                 
                 if(filasAfectadas > 0){
@@ -122,8 +132,8 @@ public class ProductoDAO {
         if(conexionBD != null){
             try{
             
-                int filasAfectadas = conexionBD.delete("producto.eliminarEmpleado");
-                conexionBD.close();
+                int filasAfectadas = conexionBD.delete("producto.eliminarProducto");
+                conexionBD.commit();
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);

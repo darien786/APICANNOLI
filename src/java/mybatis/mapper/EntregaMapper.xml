@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper id="entrega">
+    <select id="obtenerEntregas" resultType="modelo.pojo.Entrega">
+        SELECT idEntrega, fechaEntrega, descripcion, empleado, proveedor, 
+        CONCAT(nombreEmpleado,' ', apellidoPaterno, ' ', apellidoMaterno) AS nombreEmpleado,
+        nombreProveedor 
+        FROM entregas en 
+        INNER JOIN 
+        empleados em ON en.empleado = em.idEmpleado 
+        INNER JOIN 
+        personas pe ON em.persona = pe.idPersona 
+        INNER JOIN 
+        proveedores pro ON pro.idProveedor = en.proveedor 
+    </select>
+    
+    
+</mapper>

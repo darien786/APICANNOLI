@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerProductos" resultType="modelo.pojo.Producto">
         SELECT p.idProducto, p.nombre, p.codigo, p.descripcion, p.precio, p.cantidad, p.fechaElaboracion, p.fechaVencimiento, p.fotografia, p.estatus, p.categoria, 
         e.nombreEstatus, c.nombreCategoria
-        FROM productos 
+        FROM productos p 
         INNER JOIN 
         categorias c ON c.idCategoria = p.categoria 
         INNER JOIN 
