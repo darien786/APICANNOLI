@@ -102,6 +102,9 @@ public class ProductoDAO {
         if(conexionBD != null){
             try{
                 
+                Image image = Utilidades.decodificarImagenBase64(producto.getFotografiaBase64());
+                Utilidades.guardarImagen(producto.getFotografia(), image);
+                
                 int filasAfectadas = conexionBD.update("producto.editarProducto", producto);
                 conexionBD.commit();
                 
@@ -132,7 +135,7 @@ public class ProductoDAO {
         if(conexionBD != null){
             try{
             
-                int filasAfectadas = conexionBD.delete("producto.eliminarProducto");
+                int filasAfectadas = conexionBD.delete("producto.eliminarProducto", producto);
                 conexionBD.commit();
                 
                 if(filasAfectadas > 0){
