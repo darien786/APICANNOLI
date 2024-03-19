@@ -6,11 +6,13 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,6 +23,7 @@ import javax.ws.rs.core.Response;
 import modelo.ProveedorDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Proveedor;
+import utils.Utilidades;
 
 /**
  * REST Web Service
@@ -37,6 +40,15 @@ public class ProveedorWS {
      * Creates a new instance of ProveedorWS
      */
     public ProveedorWS() {
+    }
+    
+    @GET
+    @Path("obtenerProveedores")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Proveedor> obtenerProveedores(){
+        List<Proveedor> listaProveedores = null;
+        listaProveedores = ProveedorDAO.obtenerProveedores();
+        return listaProveedores;
     }
 
     @POST
@@ -79,20 +91,12 @@ public class ProveedorWS {
     
     @DELETE
     @Path("eliminarProveedor")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarProveedor(String json){
-        if(json.isEmpty()){
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }else{
-            Gson gson = new Gson();
-            Proveedor proveedor = gson.fromJson(json, Proveedor.class);
-            
-            if(proveedor != null){
-                return ProveedorDAO.eliminarProveedor(proveedor);
-            }else{
-                throw new WebApplicationException(Response.Status.BAD_REQUEST);
-            }
-        }
+    @Produces(MediaType.APPLICATION_JSON)  
+    public Mensaje eliminarProveedor(@FormParam("idProveedor") Integer idProveedor){
+        Mensaje mensaje = null;
+        mensaje = ProveedorDAO.eliminarProveedor(idProveedor);
+        
+        return mensaje;
     }
+     
 }
