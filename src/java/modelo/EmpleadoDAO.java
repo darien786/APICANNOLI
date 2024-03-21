@@ -73,17 +73,17 @@ public class EmpleadoDAO {
         return empleados;
     }
     
-    public static Empleado obtenerEmpleadoPorId(Empleado empleado){
-        Empleado empleadoSolicitado = null;
+    public static DatosRegistroEmpleado obtenerEmpleadoPorId(Integer idEmpleado){
+        DatosRegistroEmpleado empleadoSolicitado = null;
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
                 
-                empleadoSolicitado = conexionBD.selectOne("empleado.obtenerEmpleadoPorId", empleado);
+                empleadoSolicitado = conexionBD.selectOne("empleado.obtenerEmpleadoPorId", idEmpleado);
                 
-                File image = new File(empleadoSolicitado.getFotografia());
+                File image = new File(empleadoSolicitado.getEmpleado().getFotografia());
                 
-                empleadoSolicitado.setFotografiaBase64(Utilidades.convertirImagenABase64(image));
+                empleadoSolicitado.getEmpleado().setFotografiaBase64(Utilidades.convertirImagenABase64(image));
                 
             }catch(Exception e){
                 e.printStackTrace();
@@ -137,6 +137,9 @@ public class EmpleadoDAO {
                 
                 conexionBD.update("empleado.modificarEmpleado", datosEmpleado);
                 conexionBD.commit();
+                
+                Image image = Utilidades.decodificarImagenBase64(datosEmpleado.getEmpleado().getFotografiaBase64());
+                Utilidades.guardarImagen(datosEmpleado.getEmpleado().getFotografia(), image);
                 
                 if(datosEmpleado.getFilasAfectadas() > 0 && datosEmpleado.getError().isEmpty()){
                     mensaje.setError(false);

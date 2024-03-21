@@ -29,9 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         roles ro ON ro.idRol = e.rol
     </select>
     
-    <select id="obtenerEmpleadoPorId" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado">
-        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, fotografia, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno) AS nombreEmpleado , p.telefono 
+    <select id="obtenerEmpleadoPorId" resultType="modelo.pojo.DatosRegistroEmpleado" parameterType="int">
+        SELECT p.nombrePersona AS 'persona.nombrePersona',
+                       p.apellidoPaterno AS 'persona.apellidoPaterno',
+                       p.apellidoMaterno AS 'persona.apellidoMaterno',
+                       p.sexo AS 'persona.sexo',
+                       p.telefono AS 'persona.telefono',
+                        e.persona AS 'empleado.persona', 
+                        e.curp AS 'empleado.curp', 
+                        e.username AS 'empleado.username', 
+                        e.correo AS 'empleado.correo', 
+                        e.contrasenia AS 'empleado.contrasenia', 
+                        e.rol AS 'empleado.rol', 
+                        e.estatus AS 'empleado.estatus', 
+                        e.fotografia AS 'empleado.fotografia' 
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona 
