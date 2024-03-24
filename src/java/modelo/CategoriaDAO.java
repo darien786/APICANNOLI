@@ -101,15 +101,23 @@ public class CategoriaDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-                int filasAfectadas = conexionBD.delete("categoria.eliminarCategoria", categoria);
-                conexionBD.commit();
+                
+                int productosCategoria = conexionBD.selectOne("categoria.productosCategoria", categoria);
+                
+                if(productosCategoria <= 0){
+                    int filasAfectadas = conexionBD.delete("categoria.eliminarCategoria", categoria);
+                    conexionBD.commit();
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
                     mensaje.setMensaje("Eliminacion exitosa");
                 }else{
                     mensaje.setMensaje("Eliminacion fallida");
-                }  
+                }
+                }else{
+                    mensaje.setMensaje("No se puede eliminar esta categoria, tiene productos asocidos");
+                }
+                  
             }catch(Exception e){
                 e.printStackTrace();
                 mensaje.setMensaje("Por el momento no se puede realizar esta operacion, favor de intentarlo mas tarde.");

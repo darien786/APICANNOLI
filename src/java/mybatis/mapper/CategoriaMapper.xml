@@ -34,6 +34,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     <delete id="eliminarCategoria" parameterType="modelo.pojo.Categoria">
-        DELETE FROM categoria WHERE idCategoria=#{idCategoria}
+        DELETE FROM categorias WHERE idCategoria=#{idCategoria}
     </delete>
+    
+    <select id="productosCategoria" parameterType="modelo.pojo.Categoria" resultType="int">
+        SELECT COUNT(*) FROM productos WHERE categoria = #{idCategoria}
+    </select>
 </mapper>
