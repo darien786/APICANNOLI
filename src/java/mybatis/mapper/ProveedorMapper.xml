@@ -11,6 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM proveedores
     </select>
     
+    <select id="obtenerProveedor" parameterType="int" resultType="modelo.pojo.Proveedor">
+        SELECT * FROM proveedores WHERE idProveedor=#{idProveedor}
+    </select>
+    
     <insert id="registrarProveedor" parameterType="modelo.pojo.Proveedor">
         INSERT INTO proveedores(nombreProveedor, telefono, empresa, estatus) 
         VALUES(#{nombreProveedor}, #{telefono}, #{empresa}, 1)
@@ -20,8 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE proveedores SET 
         nombreProveedor=#{nombreProveedor},
         telefono=#{telefono},
-        empresa=#{empresa},
-        estatus=#{estatus}  
+        empresa=#{empresa}  
         WHERE idProveedor=#{idProveedor}
     </update>
     

@@ -17,6 +17,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -49,6 +50,15 @@ public class ProveedorWS {
         List<Proveedor> listaProveedores = null;
         listaProveedores = ProveedorDAO.obtenerProveedores();
         return listaProveedores;
+    }
+    
+    @GET
+    @Path("obtenerProveedor/{idProveedor}")
+    @Produces(MediaType.APPLICATION_JSON)  
+    public Proveedor obtenerProveedor(@PathParam("idProveedor") Integer idProveedor){
+        Proveedor proveedor = null;
+        proveedor = ProveedorDAO.obtenerProveedor(idProveedor);
+        return proveedor;
     }
 
     @POST

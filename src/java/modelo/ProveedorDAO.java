@@ -34,6 +34,23 @@ public class ProveedorDAO {
         }
         return proveedores;
     }
+    
+     public static Proveedor obtenerProveedor(Integer idProveedor) {
+        Proveedor proveedor = new Proveedor();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                proveedor = conexionBD.selectOne("proveedor.obtenerProveedor", idProveedor);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        } else {
+            System.err.println("Sin conexion con la base de datos");
+        }
+        return proveedor;
+    }
 
     public static Mensaje registrarProveedor(Proveedor proveedor) {
         Mensaje mensaje = new Mensaje();
