@@ -11,6 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -118,4 +119,20 @@ public class EmpleadoWS {
             }
         }
     }    
+    
+    @DELETE
+    @Path("eliminarEmpleado")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarEmpleado(String json){
+        if(json.isEmpty() ){
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }else{
+            Gson gson = new Gson();
+            
+            Empleado empleado = gson.fromJson(json, Empleado.class);
+            
+            return EmpleadoDAO.eliminarEmpleado(empleado);
+        }
+    }
 }

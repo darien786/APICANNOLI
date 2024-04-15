@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="autenticacion">
     
     <select id="inicioSesionEscritorio" resultType="modelo.pojo.Empleado" parameterType="modelo.pojo.Empleado" >
-        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.fotografia, e.rol, e.estatus, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno, " ", p.apellidoMaterno) AS nombreEmpleado, p.telefono, ro.nombreRol  
+        SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.fotografia, e.rol, e.estatus, e.sesion,
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno, " ", p.apellidoMaterno) AS nombreEmpleado, p.telefono, ro.nombreRol 
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona 
@@ -17,4 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         roles ro ON ro.idRol = e.rol 
         WHERE username=#{username} AND contrasenia=#{contrasenia}
     </select>
+    
+    <update id="modificarSesion" parameterType="modelo.pojo.Empleado">
+        UPDATE empleados SET sesion = 1 WHERE idEmpleado=#{idEmpleado}
+    </update>
+    
+    <update id="modificarCerrarSesion" parameterType="int">
+        UPDATE empleados SET sesion = 0 WHERE idEmpleado=#{idEmpleado}
+    </update>
 </mapper>
