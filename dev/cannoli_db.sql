@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `cannoli_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `cannoli_db`;
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cannoli_db
+-- Host: localhost    Database: cannoli_db
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,6 +25,7 @@ DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias` (
   `idCategoria` int NOT NULL AUTO_INCREMENT,
   `nombreCategoria` varchar(30) NOT NULL,
+  `fotografia` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idCategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +36,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Pastel de chocolate'),(2,'Pasteles'),(3,'Flanes');
+INSERT INTO `categorias` VALUES (1,'Pastel de chocolate',NULL),(2,'Pasteles',NULL),(3,'Flanes',NULL);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,12 +109,12 @@ CREATE TABLE `entregas` (
   `idEntrega` int NOT NULL AUTO_INCREMENT,
   `fechaEntrega` date NOT NULL,
   `descripcion` varchar(255) NOT NULL,
-  `empleado` int DEFAULT NULL,
+  `idEmpleado` int NOT NULL,
   `proveedor` int DEFAULT NULL,
   PRIMARY KEY (`idEntrega`),
-  KEY `empleado` (`empleado`),
+  KEY `empleado` (`idEmpleado`),
   KEY `proveedor` (`proveedor`),
-  CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`empleado`) REFERENCES `empleados` (`idEmpleado`),
+  CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleados` (`idEmpleado`),
   CONSTRAINT `entregas_ibfk_2` FOREIGN KEY (`proveedor`) REFERENCES `proveedores` (`idProveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -127,6 +126,29 @@ CREATE TABLE `entregas` (
 LOCK TABLES `entregas` WRITE;
 /*!40000 ALTER TABLE `entregas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `entregas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `estado`
+--
+
+DROP TABLE IF EXISTS `estado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `estado` (
+  `idEstado` int NOT NULL AUTO_INCREMENT,
+  `estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idEstado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estado`
+--
+
+LOCK TABLES `estado` WRITE;
+/*!40000 ALTER TABLE `estado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estado` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -154,6 +176,29 @@ INSERT INTO `estatus` VALUES (1,'Activo'),(2,'Inactivo');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `forma_pago`
+--
+
+DROP TABLE IF EXISTS `forma_pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `forma_pago` (
+  `idForma_pago` int NOT NULL AUTO_INCREMENT,
+  `forma_pago` varchar(20) NOT NULL,
+  PRIMARY KEY (`idForma_pago`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `forma_pago`
+--
+
+LOCK TABLES `forma_pago` WRITE;
+/*!40000 ALTER TABLE `forma_pago` DISABLE KEYS */;
+/*!40000 ALTER TABLE `forma_pago` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pedido_producto`
 --
 
@@ -169,7 +214,7 @@ CREATE TABLE `pedido_producto` (
   PRIMARY KEY (`idProducto`,`numeroPedido`),
   KEY `numeroPedido` (`numeroPedido`),
   CONSTRAINT `pedido_producto_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
-  CONSTRAINT `pedido_producto_ibfk_2` FOREIGN KEY (`numeroPedido`) REFERENCES `pedidos` (`numeroPedido`)
+  CONSTRAINT `pedido_producto_ibfk_2` FOREIGN KEY (`numeroPedido`) REFERENCES `pedidos` (`idPedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,15 +235,20 @@ DROP TABLE IF EXISTS `pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedidos` (
-  `numeroPedido` int NOT NULL AUTO_INCREMENT,
+  `idPedido` int NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
   `cliente` int DEFAULT NULL,
-  `formaPago` varchar(50) NOT NULL,
+  `id_formaPago` int NOT NULL,
   `descripcion` varchar(255) NOT NULL,
   `fotografia` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`numeroPedido`),
+  `id_estado` int NOT NULL,
+  PRIMARY KEY (`idPedido`),
   KEY `cliente` (`cliente`),
-  CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente`) REFERENCES `personas` (`idPersona`)
+  KEY `idForma_pago_idx` (`id_formaPago`),
+  KEY `idEstado_idx` (`id_estado`),
+  CONSTRAINT `cliente` FOREIGN KEY (`cliente`) REFERENCES `personas` (`idPersona`),
+  CONSTRAINT `idEstado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`idEstado`),
+  CONSTRAINT `idForma_pago` FOREIGN KEY (`id_formaPago`) REFERENCES `forma_pago` (`idForma_pago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -252,9 +302,8 @@ DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `idProducto` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(35) NOT NULL,
-  `codigo` varchar(16) NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
-  `precio` float(10,4) NOT NULL,
+  `precio` float(10,2) NOT NULL,
   `cantidad` int NOT NULL,
   `fechaElaboracion` date NOT NULL,
   `fechaVencimiento` date NOT NULL,
@@ -275,7 +324,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (3,'Flan','0023456','Flan con caramelo derretido',30.0000,12,'2024-03-16','2024-03-28','C:/cannoli/productos/Flan/Flan.png',2,2),(5,'Gelatina','0032','Gelatina realizada con leche condensada, más diferentes tipos de gelatinas de colores',180.0000,5,'2024-03-19','2024-03-24','C:/cannoli/productos/Gelatina/Gelatina.png',1,1);
+INSERT INTO `productos` VALUES (3,'Flan','Flan con caramelo derretido',30.00,12,'2024-03-16','2024-03-28','C:/cannoli/productos/Flan/Flan.png',2,2),(5,'Gelatina','Gelatina realizada con leche condensada, más diferentes tipos de gelatinas de colores',180.00,5,'2024-03-19','2024-03-24','C:/cannoli/productos/Gelatina/Gelatina.png',1,1);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +420,7 @@ CREATE TABLE `venta_producto` (
   `total` int NOT NULL,
   PRIMARY KEY (`numeroVenta`,`idProducto`),
   KEY `idProducto` (`idProducto`),
-  CONSTRAINT `venta_producto_ibfk_1` FOREIGN KEY (`numeroVenta`) REFERENCES `ventas` (`numeroVenta`),
+  CONSTRAINT `venta_producto_ibfk_1` FOREIGN KEY (`numeroVenta`) REFERENCES `ventas` (`idventa`),
   CONSTRAINT `venta_producto_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -393,13 +442,12 @@ DROP TABLE IF EXISTS `ventas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ventas` (
-  `numeroVenta` int NOT NULL AUTO_INCREMENT,
+  `idventa` int NOT NULL AUTO_INCREMENT,
   `fechaVenta` date NOT NULL,
-  `formaPago` varchar(50) NOT NULL,
-  `pedido` int DEFAULT NULL,
-  PRIMARY KEY (`numeroVenta`),
-  KEY `pedido` (`pedido`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`numeroPedido`)
+  `id_formaPago` int NOT NULL,
+  PRIMARY KEY (`idventa`),
+  KEY `id_formaPago_idx` (`id_formaPago`),
+  CONSTRAINT `id_formaPago` FOREIGN KEY (`id_formaPago`) REFERENCES `forma_pago` (`idForma_pago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -580,4 +628,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-15 18:02:26
+-- Dump completed on 2024-04-17 13:51:02
