@@ -19,9 +19,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id = "registrarPedido" parameterType="modelo.pojo.DatosRegistroPedido" statementType="CALLABLE">
-        {CALL registrarPedido(
-        )
-        }
         
     </insert>
 
