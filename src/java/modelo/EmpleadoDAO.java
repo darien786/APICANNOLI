@@ -24,140 +24,168 @@ import javafx.scene.image.Image;
  * @author cr7_k
  */
 public class EmpleadoDAO {
-    
-    public static List<Estatus> obtenerEstatus(){
+
+    public static List<Estatus> obtenerEstatus() {
         List<Estatus> listaEstatus = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
+        if (conexionBD != null) {
+            try {
                 listaEstatus = conexionBD.selectList("empleado.obtenerEstatus");
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
         }
-        
+
         return listaEstatus;
     }
-    
-    public static List<Rol> obtenerRoles(){
+
+    public static List<Rol> obtenerRoles() {
         List<Rol> listaRoles = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-                
+        if (conexionBD != null) {
+            try {
+
                 listaRoles = conexionBD.selectList("empleado.obtenerRoles");
-                
-            }catch(Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        
+
         return listaRoles;
     }
-    
-    public static List<Empleado> obtenerEmpleados(){
-        
+
+    public static List<Empleado> obtenerEmpleados() {
+
         List<Empleado> empleados = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{       
+        if (conexionBD != null) {
+            try {
                 empleados = conexionBD.selectList("empleado.obtenerEmpleados");
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
         }
         return empleados;
     }
-    
-    public static DatosRegistroEmpleado obtenerEmpleadoPorId(Integer idEmpleado){
+
+    public static DatosRegistroEmpleado obtenerEmpleadoPorId(Integer idEmpleado) {
         DatosRegistroEmpleado empleadoSolicitado = null;
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-                
+        if (conexionBD != null) {
+            try {
+
                 empleadoSolicitado = conexionBD.selectOne("empleado.obtenerEmpleadoPorId", idEmpleado);
-                
+
                 File image = new File(empleadoSolicitado.getEmpleado().getFotografia());
-                
+
                 empleadoSolicitado.getEmpleado().setFotografiaBase64(Utilidades.convertirImagenABase64(image));
-                
-            }catch(Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
         }
-        
+
         return empleadoSolicitado;
     }
-    
-    public static Mensaje registrarEmpleado(DatosRegistroEmpleado empleado){
+
+    public static Mensaje registrarEmpleado(DatosRegistroEmpleado empleado) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-                
+        if (conexionBD != null) {
+            try {
+
                 conexionBD.insert("empleado.registrarEmpleado", empleado);
                 conexionBD.commit();
-                
+
                 Image image = Utilidades.decodificarImagenBase64(empleado.getEmpleado().getFotografiaBase64());
                 Utilidades.guardarImagen(empleado.getEmpleado().getFotografia(), image);
-                
-                if(empleado.getFilasAfectadas() > 0 && empleado.getError().isEmpty()){
+
+                if (empleado.getFilasAfectadas() > 0 && empleado.getError().isEmpty()) {
                     mensaje.setError(false);
                     mensaje.setMensaje("Empleado registrado con exito");
-                }else{
+                } else {
                     mensaje.setMensaje(empleado.getError());
                 }
-                
-            }catch(Exception e){
+
+            } catch (Exception e) {
                 mensaje.setMensaje("Por el momento no puede realizarse la operación, favor de intentarlo mas tarde.");
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
-        }else{
+        } else {
             mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
         }
-        
+
         return mensaje;
     }
-    
-    public static Mensaje editarInformacionEmpleado(DatosRegistroEmpleado datosEmpleado){
+
+    public static Mensaje editarInformacionEmpleado(DatosRegistroEmpleado datosEmpleado) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(Boolean.TRUE);
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-                
+        if (conexionBD != null) {
+            try {
+
                 conexionBD.update("empleado.modificarEmpleado", datosEmpleado);
                 conexionBD.commit();
-                
+
                 Image image = Utilidades.decodificarImagenBase64(datosEmpleado.getEmpleado().getFotografiaBase64());
                 Utilidades.guardarImagen(datosEmpleado.getEmpleado().getFotografia(), image);
-                
-                if(datosEmpleado.getFilasAfectadas() > 0 && datosEmpleado.getError().isEmpty()){
+
+                if (datosEmpleado.getFilasAfectadas() > 0 && datosEmpleado.getError().isEmpty()) {
                     mensaje.setError(false);
                     mensaje.setMensaje("Información modificada con éxito");
-                }else{
+                } else {
                     mensaje.setMensaje(datosEmpleado.getError());
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 mensaje.setMensaje("Por el momento no puede realizarse la operación, favor de intentarlo mas tarde");
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
-        
-        }else{
+
+        } else {
             mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
         }
-        
+
+        return mensaje;
+    }
+
+    public static Mensaje eliminarEmpleado(Empleado empleado) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(Boolean.TRUE);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+
+                int filasAfectadas = conexionBD.delete("empleado.eliminarEmpleado", empleado);
+                conexionBD.commit();
+
+                if (filasAfectadas > 0) {
+                    mensaje.setError(false);
+                    mensaje.setMensaje("Eliminacion exitosa");
+                } else {
+                    mensaje.setMensaje("Elimición fallida");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        } else {
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+        }
+
         return mensaje;
     }
 }

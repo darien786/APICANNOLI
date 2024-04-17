@@ -89,6 +89,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         )}
     </update>
     
+    <delete id="eliminarEmpleado" parameterType="modelo.pojo.Empleado">
+        DELETE FROM empleados WHERE idEmpleado=#{idEmpleado} AND sesion = 0;
+    </delete>
     
     
 </mapper>

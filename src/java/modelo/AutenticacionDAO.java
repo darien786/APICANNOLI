@@ -6,6 +6,7 @@
 package modelo;
 
 import modelo.pojo.Empleado;
+import modelo.pojo.Mensaje;
 import modelo.pojo.MensajeAutenticacion;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -23,8 +24,10 @@ public class AutenticacionDAO {
         if(conexionBD != null){
            try{
                Empleado sesionEmpleado = conexionBD.selectOne("autenticacion.inicioSesionEscritorio", empleado);
+               int filasAfectadas = conexionBD.update("autenticacion.modificarSesion", sesionEmpleado);
+               conexionBD.commit();
                
-               if(sesionEmpleado != null){
+               if(sesionEmpleado != null && filasAfectadas > 0){
                    mensaje.setError(false);
                    mensaje.setMensaje("!Bienvenid@ " + sesionEmpleado.getNombreEmpleado() + "¡");
                    mensaje.setEmpleado(sesionEmpleado);
@@ -39,6 +42,33 @@ public class AutenticacionDAO {
            } 
         }else{
             mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+        }
+        
+        return mensaje;
+    }
+    
+    public static Mensaje cerrarSesion(Integer idEmpleado){
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(Boolean.TRUE);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                 
+                int filasAfectadas = conexionBD.update("autenticacion.modificarCerrarSesion", idEmpleado);
+                conexionBD.commit();
+                
+                if(filasAfectadas > 0){
+                    mensaje.setError(false);
+                    mensaje.setMensaje("Adios");
+                }
+            }catch(Exception e){
+                mensaje.setMensaje("Por el momento no se puede realizar esta operacion");
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
         }
         
         return mensaje;
