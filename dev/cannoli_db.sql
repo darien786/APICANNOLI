@@ -25,8 +25,11 @@ DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias` (
   `idCategoria` int NOT NULL AUTO_INCREMENT,
   `nombreCategoria` varchar(30) NOT NULL,
-  `fotografia` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idCategoria`)
+  `fotografia` varchar(100) NOT NULL,
+  `estatus` int NOT NULL,
+  PRIMARY KEY (`idCategoria`),
+  KEY `idEstatus_idx` (`estatus`),
+  CONSTRAINT `estatus` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,7 +39,6 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Pastel de chocolate',NULL),(2,'Pasteles',NULL),(3,'Flanes',NULL);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +79,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (11,16,'ASDFa','apocosi@gmail.com','122','C:/file/file','1234567',1,2,0),(21,30,'Liz123','Liz@gmail.com','Liz2343','C:/empleados/Liz123/Liz123.jpg','123456',1,1,0),(22,31,'guille123','guille@gmail.com','guillermo2343','C:/cannoli/empleados/guille123/guille123.png','123456',1,1,0),(24,34,'QWERTYIA','aron@gmail.com','aron12','C:/cannoli/empleados/QWERTYIA/QWERTYIA.png','12345',2,2,0),(25,36,'qwertgfd','admin@gmail.com','user','C:/cannoli/empleados/qwertgfd/qwertgfd.png','12345',1,1,0),(28,41,'ieinadna','asnalsn','pepin','C:/cannoli/empleados/ieinadna/ieinadna.png','12345',1,1,0),(29,42,'QWERTTDS','pinocho@gmail.com','filfil','C:/cannoli/empleados/QWERTTDS/QWERTTDS.png','admin',2,1,0),(30,44,'ASDFFGHJJHGF','luisantonio@gmail.com','zkorpio12','C:/cannoli/empleados/ASDFFGHJJHGF/ASDFFGHJJHGF.png','12345678',2,1,0),(32,46,'adsjajld','asbdkajskd','jdjadsa','C:/cannoli/empleados/adsjajld/adsjajld.png','asdnansld',1,1,1),(33,47,'asdasd','adasda','asdasd','C:/cannoli/empleados/asdasd/asdasd.png','adasda',1,1,1),(34,48,'asae','azara','volvol','C:/cannoli/empleados/asae/asae.png','12qw',1,1,1),(38,52,'asl','marilu@gmail.com','askk','C:/cannoli/empleados/asl/asl.png','password',1,1,1),(39,54,'NIE','lalo@gmail.com','caracolito','C:/cannoli/empleados/NIE/NIE.png','12345',1,1,1);
+INSERT INTO `empleados` VALUES (11,16,'ASDFa','apocosi@gmail.com','122','C:/file/file','1234567',1,2,0),(21,30,'Liz123','Liz@gmail.com','Liz2343','C:/empleados/Liz123/Liz123.jpg','123456',1,1,0),(22,31,'guille123','guille@gmail.com','guillermo2343','C:/cannoli/empleados/guille123/guille123.png','123456',1,1,0),(24,34,'QWERTYIA','aron@gmail.com','aron12','C:/cannoli/empleados/QWERTYIA/QWERTYIA.png','12345',2,2,0),(25,36,'qwertgfd','admin@gmail.com','user','C:/cannoli/empleados/qwertgfd/qwertgfd.png','12345',1,1,0),(28,41,'ieinadna','asnalsn','pepin','C:/cannoli/empleados/ieinadna/ieinadna.png','12345',1,1,0),(29,42,'QWERTTDS','pinocho@gmail.com','filfil','C:/cannoli/empleados/QWERTTDS/QWERTTDS.png','admin',2,1,0),(30,44,'ASDFFGHJJHGF','luisantonio@gmail.com','zkorpio12','C:/cannoli/empleados/ASDFFGHJJHGF/ASDFFGHJJHGF.png','12345678',2,1,0),(32,46,'adsjajld','asbdkajskd','jdjadsa','C:/cannoli/empleados/adsjajld/adsjajld.png','asdnansld',1,1,1),(33,47,'asdasd','adasda','asdasd','C:/cannoli/empleados/asdasd/asdasd.png','adasda',1,1,1),(34,48,'asae','azara','volvol','C:/cannoli/empleados/asae/asae.png','12qw',1,1,1),(38,52,'asl','marilu@gmail.com','askk','C:/cannoli/empleados/asl/asl.png','password',1,1,1),(39,54,'NIE','lalo@gmail.com','caracolito','C:/cannoli/empleados/NIE/NIE.png','12345',1,1,0);
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -110,12 +112,13 @@ CREATE TABLE `entregas` (
   `fechaEntrega` date NOT NULL,
   `descripcion` varchar(255) NOT NULL,
   `idEmpleado` int NOT NULL,
-  `proveedor` int DEFAULT NULL,
+  `idProveedor` int NOT NULL,
   PRIMARY KEY (`idEntrega`),
   KEY `empleado` (`idEmpleado`),
-  KEY `proveedor` (`proveedor`),
+  KEY `proveedor` (`idProveedor`),
   CONSTRAINT `entregas_ibfk_1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleados` (`idEmpleado`),
-  CONSTRAINT `entregas_ibfk_2` FOREIGN KEY (`proveedor`) REFERENCES `proveedores` (`idProveedor`)
+  CONSTRAINT `entregas_ibfk_2` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`),
+  CONSTRAINT `proveedor` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -324,7 +327,6 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (3,'Flan','Flan con caramelo derretido',30.00,12,'2024-03-16','2024-03-28','C:/cannoli/productos/Flan/Flan.png',2,2),(5,'Gelatina','Gelatina realizada con leche condensada, más diferentes tipos de gelatinas de colores',180.00,5,'2024-03-19','2024-03-24','C:/cannoli/productos/Gelatina/Gelatina.png',1,1);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -628,4 +630,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-17 13:51:02
+-- Dump completed on 2024-04-17 21:24:36

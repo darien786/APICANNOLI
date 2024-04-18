@@ -24,7 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         UPDATE proveedores SET 
         nombreProveedor=#{nombreProveedor},
         telefono=#{telefono},
-        empresa=#{empresa}  
+        empresa=#{empresa},
+        estatus=#{estatus}  
         WHERE idProveedor=#{idProveedor}
     </update>
     
