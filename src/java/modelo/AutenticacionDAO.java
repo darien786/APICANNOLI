@@ -29,7 +29,7 @@ public class AutenticacionDAO {
                
                if(sesionEmpleado != null && filasAfectadas > 0){
                    mensaje.setError(false);
-                   mensaje.setMensaje("!Bienvenid@ " + sesionEmpleado.getNombreEmpleado() + "¡");
+                   mensaje.setMensaje("");
                    mensaje.setEmpleado(sesionEmpleado);
                }else{
                    mensaje.setMensaje("Usuario y/o contraseñas incorrectas");
@@ -41,7 +41,7 @@ public class AutenticacionDAO {
                conexionBD.close();
            } 
         }else{
-            mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;
@@ -59,7 +59,7 @@ public class AutenticacionDAO {
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
-                    mensaje.setMensaje("Adios");
+                    mensaje.setMensaje("");
                 }
             }catch(Exception e){
                 mensaje.setMensaje("Por el momento no se puede realizar esta operacion");
@@ -68,7 +68,7 @@ public class AutenticacionDAO {
                 conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;

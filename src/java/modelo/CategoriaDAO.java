@@ -89,7 +89,7 @@ public class CategoriaDAO {
             }
         
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
         
         return mensaje;
@@ -110,9 +110,9 @@ public class CategoriaDAO {
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
-                    mensaje.setMensaje("Eliminacion exitosa");
+                    mensaje.setMensaje("Eliminación exitósa");
                 }else{
-                    mensaje.setMensaje("Eliminacion fallida");
+                    mensaje.setMensaje("Eliminación fallida");
                 }
                 }else{
                     mensaje.setMensaje("No se puede eliminar esta categoria, tiene productos asocidos");
@@ -126,7 +126,7 @@ public class CategoriaDAO {
             }
             
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
         
         return mensaje;
