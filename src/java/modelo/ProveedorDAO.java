@@ -75,7 +75,7 @@ public class ProveedorDAO {
                 conexionBD.close();
             }
         } else {
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         return mensaje;
     }
@@ -92,19 +92,19 @@ public class ProveedorDAO {
 
                 if (filasAfectadas > 0) {
                     mensaje.setError(false);
-                    mensaje.setMensaje("Modificación exitosa");
+                    mensaje.setMensaje("Modificación exitósa");
                 } else {
                     mensaje.setMensaje("Modificación fallida");
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no see puede realizar esta operación, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar esta operación.");
             } finally {
                 conexionBD.close();
             }
         } else {
-
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
         return mensaje;
     }
@@ -119,20 +119,20 @@ public class ProveedorDAO {
                 if (numFilasAfectadas > 0) {
                     conexionBD.commit();
                     respuesta.setError(false);
-                    respuesta.setMensaje("Se ha eliminado correctamente el proveedor.");
+                    respuesta.setMensaje("Eliminación exitósa");
                 } else {
                     respuesta.setError(true);
-                    respuesta.setMensaje("Hubo un error al eliminar el proveedor.");
+                    respuesta.setMensaje("Eliminación faliida.");
                 }
             } catch (Exception e) {
                 respuesta.setError(true);
-                respuesta.setMensaje("Error: " + e.getMessage());
+                respuesta.setMensaje("Por el momento no se puede realizar la operación.");
             } finally {
                 conexionBD.close();
             }
         } else {
             respuesta.setError(true);
-            respuesta.setMensaje("Sin Conexión a BD");
+            respuesta.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
 
         return respuesta;

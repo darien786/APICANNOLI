@@ -110,7 +110,7 @@ public class EmpleadoDAO {
 
                 if (empleado.getFilasAfectadas() > 0 && empleado.getError().isEmpty()) {
                     mensaje.setError(false);
-                    mensaje.setMensaje("Empleado registrado con exito");
+                    mensaje.setMensaje("Registro éxitoso.");
                 } else {
                     mensaje.setMensaje(empleado.getError());
                 }
@@ -122,7 +122,7 @@ public class EmpleadoDAO {
                 conexionBD.close();
             }
         } else {
-            mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
 
         return mensaje;
@@ -143,7 +143,7 @@ public class EmpleadoDAO {
 
                 if (datosEmpleado.getFilasAfectadas() > 0 && datosEmpleado.getError().isEmpty()) {
                     mensaje.setError(false);
-                    mensaje.setMensaje("Información modificada con éxito");
+                    mensaje.setMensaje("Modificación éxitosa.");
                 } else {
                     mensaje.setMensaje(datosEmpleado.getError());
                 }
@@ -155,7 +155,7 @@ public class EmpleadoDAO {
             }
 
         } else {
-            mensaje.setMensaje("Error: Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
 
         return mensaje;
@@ -173,9 +173,9 @@ public class EmpleadoDAO {
 
                 if (filasAfectadas > 0) {
                     mensaje.setError(false);
-                    mensaje.setMensaje("Eliminacion exitosa");
+                    mensaje.setMensaje("Eliminación exitósa");
                 } else {
-                    mensaje.setMensaje("Elimición fallida");
+                    mensaje.setMensaje("Eliminación fallida");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -183,7 +183,7 @@ public class EmpleadoDAO {
                 conexionBD.close();
             }
         } else {
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
 
         return mensaje;
