@@ -5,130 +5,140 @@
  */
 package modelo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.image.Image;
 import modelo.pojo.Categoria;
 import modelo.pojo.Mensaje;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
+import utils.Utilidades;
 
 /**
  *
  * @author cr7_k
  */
 public class CategoriaDAO {
-    
-    public static List<Categoria> obtenerCategorias(){
+
+    public static List<Categoria> obtenerCategorias() {
         List<Categoria> listaCategorias = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-                
+        if (conexionBD != null) {
+            try {
+
                 listaCategorias = conexionBD.selectList("categoria.obtenerCategorias");
-                
-            }catch(Exception e){
+
+                for (int i = 0; i < listaCategorias.size(); i++) {
+                    File image = new File(listaCategorias.get(i).getFotografia());
+                    listaCategorias.get(i).setFotografiaBase64(Utilidades.convertirImagenABase64(image) + "Hola");
+                }
+
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
         }
-        
+
         return listaCategorias;
     }
-    
-    public static Mensaje registrarCategoria(Categoria categoria){
+
+    public static Mensaje registrarCategoria(Categoria categoria) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-              
+        if (conexionBD != null) {
+            try {
+
                 int filasAfectadas = conexionBD.insert("categoria.registrarCategoria", categoria);
                 conexionBD.commit();
-                
-                if(filasAfectadas > 0){
+
+                Image image = Utilidades.decodificarImagenBase64(categoria.getFotografiaBase64());
+                Utilidades.guardarImagen(categoria.getFotografia(), image);
+
+                if (filasAfectadas > 0) {
                     mensaje.setError(false);
                     mensaje.setMensaje("Registro éxitoso");
-                }else{
+                } else {
                     mensaje.setMensaje("Registro fallido");
                 }
-            }catch(Exception e){
-                mensaje.setMensaje("Por el momento no se puede relaizar esta operacion, favor de intentarlo mas tarde.");
+            } catch (Exception e) {
+                mensaje.setMensaje("Por el momento no se puede relaizar esta operacion.");
                 e.printStackTrace();
-            }finally{
+            } finally {
                 conexionBD.close();
             }
-        }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+        } else {
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
-        
+
         return mensaje;
     }
-    
-    
-    public static Mensaje modificarCategoria(Categoria categoria){
+
+    public static Mensaje modificarCategoria(Categoria categoria) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
+        if (conexionBD != null) {
+            try {
                 int filasAfectadas = conexionBD.update("categoria.editarCategoria", categoria);
                 conexionBD.commit();
-                
-                if(filasAfectadas > 0){
+
+                if (filasAfectadas > 0) {
                     mensaje.setError(false);
                     mensaje.setMensaje("Modificacion exitosa");
-                }else{
+                } else {
                     mensaje.setMensaje("Modificacion fallida");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar esta operacion, favor de intentarlo mas tarde.");
-            }finally{
+                mensaje.setMensaje("Por el momento no se puede realizar esta operacion.");
+            } finally {
                 conexionBD.close();
             }
-        
-        }else{
+
+        } else {
             mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
-        
+
         return mensaje;
     }
-    
-    public static Mensaje eliminarCategoria(Categoria categoria){
+
+    public static Mensaje eliminarCategoria(Categoria categoria) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
-        if(conexionBD != null){
-            try{
-                
+        if (conexionBD != null) {
+            try {
+
                 int productosCategoria = conexionBD.selectOne("categoria.productosCategoria", categoria);
-                
-                if(productosCategoria <= 0){
+
+                if (productosCategoria <= 0) {
                     int filasAfectadas = conexionBD.delete("categoria.eliminarCategoria", categoria);
                     conexionBD.commit();
-                
-                if(filasAfectadas > 0){
-                    mensaje.setError(false);
-                    mensaje.setMensaje("Eliminación exitósa");
-                }else{
-                    mensaje.setMensaje("Eliminación fallida");
-                }
-                }else{
+
+                    if (filasAfectadas > 0) {
+                        mensaje.setError(false);
+                        mensaje.setMensaje("Eliminación exitósa");
+                    } else {
+                        mensaje.setMensaje("Eliminación fallida");
+                    }
+                } else {
                     mensaje.setMensaje("No se puede eliminar esta categoria, tiene productos asocidos");
                 }
-                  
-            }catch(Exception e){
+
+            } catch (Exception e) {
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar esta operacion, favor de intentarlo mas tarde.");
-            }finally{
+                mensaje.setMensaje("Por el momento no se puede realizar esta operacion.");
+            } finally {
                 conexionBD.close();
             }
-            
-        }else{
+
+        } else {
             mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
-        
+
         return mensaje;
     }
 }
