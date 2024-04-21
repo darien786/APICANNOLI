@@ -11,9 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM categorias ca 
     </select>
     
-    <select id="obtenerCategoriaPorId" resultType="modelo.pojo.Categoria">
-        SELECT ca.idCategoria, ca.nombreCategoria 
-        FROM categoria ca 
+    <select id="obtenerCategoriaPorId" resultType="modelo.pojo.Categoria" parameterType="int">
+        SELECT ca.idCategoria, ca.nombreCategoria, fotografia, estatus  
+        FROM categorias ca 
+        WHERE ca.idCategoria = #{idCategoria}
     </select>
     
     <insert id="registrarCategoria" parameterType="modelo.pojo.Categoria">

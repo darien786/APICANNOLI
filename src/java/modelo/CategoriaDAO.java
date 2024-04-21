@@ -29,11 +29,6 @@ public class CategoriaDAO {
 
                 listaCategorias = conexionBD.selectList("categoria.obtenerCategorias");
 
-                for (int i = 0; i < listaCategorias.size(); i++) {
-                    File image = new File(listaCategorias.get(i).getFotografia());
-                    listaCategorias.get(i).setFotografiaBase64(Utilidades.convertirImagenABase64(image) + "Hola");
-                }
-
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -42,6 +37,26 @@ public class CategoriaDAO {
         }
 
         return listaCategorias;
+    }
+    
+    public static Categoria obtenerCategoriaPorId(Integer idCategoria){
+        Categoria categoria = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                
+                categoria = conexionBD.selectOne("categoria.obtenerCategoriaPorId", idCategoria);
+                
+                File image = new File(categoria.getFotografia());
+                categoria.setFotografiaBase64(Utilidades.convertirImagenABase64(image));
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }
+        return categoria;
     }
 
     public static Mensaje registrarCategoria(Categoria categoria) {
