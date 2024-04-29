@@ -7,23 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="categoria">
     <select id="obtenerCategorias" resultType="modelo.pojo.Categoria">
-        SELECT ca.idCategoria, ca.nombreCategoria  
+        SELECT ca.idCategoria, ca.nombreCategoria, fotografia, estatus 
         FROM categorias ca 
     </select>
     
-    <select id="obtenerCategoriaPorId" resultType="modelo.pojo.Categoria">
-        SELECT ca.idCategoria, ca.nombreCategoria 
-        FROM categoria ca 
+    <select id="obtenerCategoriaPorId" resultType="modelo.pojo.Categoria" parameterType="int">
+        SELECT ca.idCategoria, ca.nombreCategoria, fotografia, estatus  
+        FROM categorias ca 
+        WHERE ca.idCategoria = #{idCategoria}
     </select>
     
     <insert id="registrarCategoria" parameterType="modelo.pojo.Categoria">
-        INSERT INTO categorias(nombreCategoria) 
-        VALUES(#{nombreCategoria})
+        INSERT INTO categorias(nombreCategoria, fotografia, estatus) 
+        VALUES(#{nombreCategoria}, #{fotografia}, #{estatus})
     </insert>
     
     <update id="editarCategoria" parameterType="modelo.pojo.Categoria">
         UPDATE categorias SET 
-        nombreCategoria=#{nombreCategoria} 
+        nombreCategoria=#{nombreCategoria},
+        fotografia=#{fotografia},
+        estatus=#{estatus} 
         WHERE idCategoria = #{idCategoria}
     </update>
     
