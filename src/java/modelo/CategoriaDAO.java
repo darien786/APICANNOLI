@@ -58,8 +58,8 @@ public class CategoriaDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+        } else {
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
         
         return mensaje;
