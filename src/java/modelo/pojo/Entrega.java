@@ -13,20 +13,20 @@ public class Entrega {
     private Integer idEntrega;
     private String fechaEntrega;
     private String descripcion;
-    private Integer empleado;
-    private Integer proveedor;
+    private Integer idEmpleado;
+    private Integer idProveedor;
     private String nombreEmpleado;
     private String nombreProveedor;
 
     public Entrega() {
     }
 
-    public Entrega(Integer idEntrega, String fechaEntrega, String descripcion, Integer empleado, Integer proveedor) {
+    public Entrega(Integer idEntrega, String fechaEntrega, String descripcion, Integer idEmpleado, Integer idProveedor) {
         this.idEntrega = idEntrega;
         this.fechaEntrega = fechaEntrega;
         this.descripcion = descripcion;
-        this.empleado = empleado;
-        this.proveedor = proveedor;
+        this.idEmpleado = idEmpleado;
+        this.idProveedor = idProveedor;
     }
 
     public Integer getIdEntrega() {
@@ -53,20 +53,20 @@ public class Entrega {
         this.descripcion = descripcion;
     }
 
-    public Integer getEmpleado() {
-        return empleado;
+    public Integer getIdEmpleado() {
+        return idEmpleado;
     }
 
-    public void setEmpleado(Integer empleado) {
-        this.empleado = empleado;
+    public void setIdEmpleado(Integer empleado) {
+        this.idEmpleado = empleado;
     }
 
-    public Integer getProveedor() {
-        return proveedor;
+    public Integer getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setProveedor(Integer proveedor) {
-        this.proveedor = proveedor;
+    public void setProveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     public String getNombreEmpleado() {
