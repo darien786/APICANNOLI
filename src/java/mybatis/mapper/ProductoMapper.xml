@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="producto">
     <select id="obtenerProductos" resultType="modelo.pojo.Producto">
-        SELECT p.idProducto, p.nombre, p.codigo, p.descripcion, p.precio, p.cantidad, p.fechaElaboracion, p.fechaVencimiento, p.fotografia, p.estatus, p.categoria, 
+        SELECT p.idProducto, p.nombre, p.descripcion, p.precio, p.cantidad, p.fechaElaboracion, p.fechaVencimiento, p.fotografia, p.estatus, p.categoria, 
         e.nombreEstatus, c.nombreCategoria
         FROM productos p 
         INNER JOIN 
@@ -17,20 +17,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="obtenerProductoPorId" resultType="modelo.pojo.Producto" parameterType="int">
-        SELECT idProducto, nombre, codigo, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria 
+        SELECT idProducto, nombre, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria 
         FROM productos 
         WHERE idProducto = #{idProducto}
     </select>
     
     <insert id="registrarProducto" parameterType="modelo.pojo.Producto">
-        INSERT INTO productos (nombre, codigo, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria) 
-        VALUES(#{nombre}, #{codigo}, #{descripcion}, #{precio}, #{cantidad}, #{fechaElaboracion}, #{fechaVencimiento}, #{fotografia}, 1, #{categoria})
+        INSERT INTO productos (nombre, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria) 
+        VALUES(#{nombre}, #{descripcion}, #{precio}, #{cantidad}, #{fechaElaboracion}, #{fechaVencimiento}, #{fotografia}, 1, #{categoria})
     </insert>
     
     <update id="editarProducto" parameterType="modelo.pojo.Producto">
         UPDATE productos SET 
         nombre=#{nombre},
-        codigo=#{codigo},
         descripcion=#{descripcion},
         precio=#{precio},
         cantidad=#{cantidad},
