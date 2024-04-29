@@ -12,7 +12,6 @@ package modelo.pojo;
 public class Producto {
     private Integer idProducto;
     private String nombre;
-    private String codigo;
     private String descripcion;
     private Float precio;
     private Integer cantidad;
@@ -23,15 +22,13 @@ public class Producto {
     private Integer categoria;
     private String nombreEstatus;
     private String nombreCategoria;
-    private String fotografiaBase64;
 
     public Producto() {
     }
 
-    public Producto(Integer idProducto, String nombre, String codigo, String descripcion, Float precio, Integer cantidad, String fechaElaboracion, String fechaVencimiento, String fotografia, Integer estatus, Integer categoria, String nombreEstatus, String nombreCategoria) {
+    public Producto(Integer idProducto, String nombre, String descripcion, Float precio, Integer cantidad, String fechaElaboracion, String fechaVencimiento, String fotografia, Integer estatus, Integer categoria, String nombreEstatus, String nombreCategoria) {
         this.idProducto = idProducto;
         this.nombre = nombre;
-        this.codigo = codigo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.cantidad = cantidad;
@@ -58,14 +55,6 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getDescripcion() {
@@ -147,15 +136,5 @@ public class Producto {
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
-
-    public String getFotografiaBase64() {
-        return fotografiaBase64;
-    }
-
-    public void setFotografiaBase64(String fotografiaBase64) {
-        this.fotografiaBase64 = fotografiaBase64;
-    }
-    
-    
     
 }

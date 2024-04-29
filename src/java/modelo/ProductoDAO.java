@@ -29,9 +29,7 @@ public class ProductoDAO {
             try{
             
                 producto = conexionBD.selectOne("producto.obtenerProductoPorId", idProducto);
-                
-                File file = new File(producto.getFotografia());
-                producto.setFotografiaBase64(Utilidades.convertirImagenABase64(file));
+               
                 
             }catch(Exception e){
                 e.printStackTrace();
@@ -68,8 +66,6 @@ public class ProductoDAO {
         if(conexionBD != null){
             try{
                 
-                Image image = Utilidades.decodificarImagenBase64(producto.getFotografiaBase64());
-                Utilidades.guardarImagen(producto.getFotografia(), image);
                 
                 int filasAfectadas = conexionBD.insert("producto.registrarProducto", producto);
                 conexionBD.commit();
@@ -101,9 +97,6 @@ public class ProductoDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-                
-                Image image = Utilidades.decodificarImagenBase64(producto.getFotografiaBase64());
-                Utilidades.guardarImagen(producto.getFotografia(), image);
                 
                 int filasAfectadas = conexionBD.update("producto.editarProducto", producto);
                 conexionBD.commit();
