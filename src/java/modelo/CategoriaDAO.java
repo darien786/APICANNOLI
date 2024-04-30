@@ -97,8 +97,12 @@ public class CategoriaDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if (conexionBD != null) {
             try {
+                
                 int filasAfectadas = conexionBD.update("categoria.editarCategoria", categoria);
                 conexionBD.commit();
+                
+                Image image = Utilidades.decodificarImagenBase64(categoria.getFotografiaBase64());
+                Utilidades.guardarImagen(categoria.getFotografia(), image);
 
                 if (filasAfectadas > 0) {
                     mensaje.setError(false);
