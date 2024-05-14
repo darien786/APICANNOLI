@@ -32,7 +32,7 @@ CREATE TABLE `categorias` (
   PRIMARY KEY (`idCategoria`),
   KEY `idEstatus_idx` (`estatus`),
   CONSTRAINT `estatus` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` VALUES (1,'corales','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\img\\pasteles.png',1),(4,'donas','C:/cannoli/categorias//donas.png',1),(5,'ghfhgghfh','C:/cannoli/categorias//ghfhgghfh.png',1),(6,'dos','C:/cannoli/categorias//dos.png',1),(7,'hy','C:/cannoli/categorias//hy.png',1),(8,'hjgjh','C:/cannoli/categorias//hjgjh.png',1),(9,'nu','C:/cannoli/categorias//nu.png',1),(10,'nur','C:/cannoli/categorias//nur.png',1),(11,'ju','C:/cannoli/categorias//ju.png',1);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +73,7 @@ CREATE TABLE `empleados` (
   CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`persona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `empleados_ibfk_2` FOREIGN KEY (`rol`) REFERENCES `roles` (`idRol`),
   CONSTRAINT `empleados_ibfk_3` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +82,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (11,16,'ASDFa','apocosi@gmail.com','122','C:/file/file','1234567',1,2,0),(21,30,'Liz123','Liz@gmail.com','Liz2343','C:/empleados/Liz123/Liz123.jpg','123456',1,1,0),(22,31,'guille123','guille@gmail.com','guillermo2343','C:/cannoli/empleados/guille123/guille123.png','123456',1,1,0),(24,34,'QWERTYIA','aron@gmail.com','aron12','C:/cannoli/empleados/QWERTYIA/QWERTYIA.png','12345',2,2,0),(25,36,'qwertgfd','admin@gmail.com','user','C:/cannoli/empleados/qwertgfd/qwertgfd.png','12345',1,1,0),(28,41,'ieinadna','asnalsn','pepin','C:/cannoli/empleados/ieinadna/ieinadna.png','12345',1,1,0),(29,42,'QWERTTDS','pinocho@gmail.com','filfil','C:/cannoli/empleados/QWERTTDS/QWERTTDS.png','admin',2,1,0),(30,44,'ASDFFGHJJHGF','luisantonio@gmail.com','zkorpio12','C:/cannoli/empleados/ASDFFGHJJHGF/ASDFFGHJJHGF.png','12345678',2,1,0),(32,46,'adsjajld','asbdkajskd','jdjadsa','C:/cannoli/empleados/adsjajld/adsjajld.png','asdnansld',1,1,1),(33,47,'asdasd','adasda','asdasd','C:/cannoli/empleados/asdasd/asdasd.png','adasda',1,1,1),(34,48,'asae','azara','volvol','C:/cannoli/empleados/asae/asae.png','12qw',1,1,1),(38,52,'asl','marilu@gmail.com','askk','C:/cannoli/empleados/asl/asl.png','password',1,1,1),(39,54,'NIE','lalo@gmail.com','caracolito','C:/cannoli/empleados/NIE/NIE.png','12345',1,1,0);
+INSERT INTO `empleados` VALUES (11,16,'ASDFa','apocosi@gmail.com','122','C:/file/file','1234567',1,2,0),(21,30,'Liz123','Liz@gmail.com','Liz2343','C:/empleados/Liz123/Liz123.jpg','123456',1,1,0),(25,36,'qwertgfd','admin@gmail.com','user','C:/cannoli/empleados/qwertgfd/qwertgfd.png','12345',1,1,0),(32,46,'adsjajld','asbdkajskd','jdjadsa','C:/cannoli/empleados/adsjajld/adsjajld.png','asdnansld',1,1,1),(33,47,'asdasd','adasda','asdasd','C:/cannoli/empleados/asdasd/asdasd.png','adasda',1,1,1),(34,48,'asae','azara','volvol','C:/cannoli/empleados/asae/asae.png','12qw',1,1,1),(38,52,'asl','marilu@gmail.com','askk','C:/cannoli/empleados/asl/asl.png','password',1,1,1),(39,54,'NIE','lalo@gmail.com','caracolito','C:/cannoli/empleados/NIE/NIE.png','12345',1,1,0),(40,55,'6554564EAGGBEFRERR','vbvkhvhkgk@gmail.com','jhghjghjgj','C:/cannoli/empleados/6554564EAGGBEFRERR/6554564EAGGBEFRERR.png','Caracoles123',1,1,1),(41,56,'GBSHYY46YH44GBNGNH','bjh@gmail.com','hgjh','C:/cannoli/empleados/GBSHYY46YH44GBNGNH/GBSHYY46YH44GBNGNH.png','estoghhg554VD',1,1,1),(42,57,'HETREREYHTH43543HT','fgf@hjgjhghj.com','hghjgj','C:/cannoli/empleados/HETREREYHTH43543HT/HETREREYHTH43543HT.png','8897bqDS',2,1,1);
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -189,9 +190,9 @@ DROP TABLE IF EXISTS `forma_pago`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `forma_pago` (
   `idForma_pago` int NOT NULL AUTO_INCREMENT,
-  `forma_pago` varchar(20) NOT NULL,
+  `forma_pago` varchar(30) NOT NULL,
   PRIMARY KEY (`idForma_pago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,6 +201,7 @@ CREATE TABLE `forma_pago` (
 
 LOCK TABLES `forma_pago` WRITE;
 /*!40000 ALTER TABLE `forma_pago` DISABLE KEYS */;
+INSERT INTO `forma_pago` VALUES (1,'Tarjeta de Crédito/Débito'),(2,'Transferencia');
 /*!40000 ALTER TABLE `forma_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,17 +243,18 @@ DROP TABLE IF EXISTS `pedidos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedidos` (
   `idPedido` int NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `cliente` int DEFAULT NULL,
-  `id_formaPago` int NOT NULL,
+  `fechaPedido` date NOT NULL,
+  `fechaEntrega` date NOT NULL,
+  `nombreCliente` varchar(45) NOT NULL,
+  `telefono` int NOT NULL,
   `descripcion` varchar(255) NOT NULL,
   `fotografia` varchar(255) DEFAULT NULL,
+  `id_formaPago` int NOT NULL,
   `id_estado` int NOT NULL,
   PRIMARY KEY (`idPedido`),
-  KEY `cliente` (`cliente`),
+  KEY `cliente` (`nombreCliente`),
   KEY `idForma_pago_idx` (`id_formaPago`),
   KEY `idEstado_idx` (`id_estado`),
-  CONSTRAINT `cliente` FOREIGN KEY (`cliente`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `idEstado` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`idEstado`),
   CONSTRAINT `idForma_pago` FOREIGN KEY (`id_formaPago`) REFERENCES `forma_pago` (`idForma_pago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -284,7 +287,7 @@ CREATE TABLE `personas` (
   PRIMARY KEY (`idPersona`),
   KEY `tipoPersona` (`tipoPersona`),
   CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`tipoPersona`) REFERENCES `tipopersonas` (`idTipoPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +296,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (16,'Dorian','Dorian','Dorian','Masculino','2244556644',1),(19,'Santigo','File','Lopez','Masculino','2244556644',1),(20,'Santigo','File','Lopez','Masculino','2244556644',1),(30,'Liz','Liz','Liz','Femenino','224451111',1),(31,'guille','guille','guille','Femenino','224451122',1),(34,'Christian','Granillo','Aron','Masculino','229911199',1),(36,'persona','alberto','baltazar','Masculino','228111223',1),(41,'dardar','PEPIN','dardar','Masculino','2233441166',1),(42,'Pin','Juarez','Pinocho','Femenino','22334455',1),(44,'Luis toño','Hernandez','Baltazar','Masculino','2282789811',1),(45,'Angel','Carrillo','Baltazar','Masculino','9988776655',1),(46,'djabskjd','abjdkja','adkabsd','Masculino','asjldasjd',1),(47,'asdasda','adasdas','adadsa','Masculino','adasdas',1),(48,'Fil','Fil','Zar','Masculino','1234',1),(52,'Marilu','Filomeno','Guti','Femenino','123456',1),(54,'Galan Galan','Cepillin','NIE','Masculino','222',1);
+INSERT INTO `personas` VALUES (16,'Dorian','Dorian','Dorian','Masculino','2244556644',1),(19,'Santigo','File','Lopez','Masculino','2244556644',1),(20,'Santigo','File','Lopez','Masculino','2244556644',1),(30,'Liz','Liz','Liz','Femenino','224451111',1),(36,'persona','alberto','baltazar','Masculino','228111223',1),(45,'Angel','Carrillo','Baltazar','Masculino','9988776655',1),(46,'djabskjd','abjdkja','adkabsd','Masculino','asjldasjd',1),(47,'asdasda','adasdas','adadsa','Masculino','adasdas',1),(48,'Fil','Fil','Zar','Masculino','1234',1),(52,'Marilu','Filomeno','Guti','Femenino','123456',1),(54,'Galan Galan','Cepillin','NIE','Masculino','222',1),(55,'guj','juhh','gfdd','Femenino','2281002031',1),(56,'uyuotyuyuoyuto','ghgvnbnnvh','hghvgv','Femenino','5765675765',1),(57,'fernando houoi','uiyuiyui','jgjkhjghj','Masculino','6545464546',1);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,7 +323,7 @@ CREATE TABLE `productos` (
   KEY `categoria` (`categoria`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`),
   CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -329,6 +332,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,'pastel de chocolate','promoción especial',45.30,4,'2024-04-23','2024-04-27','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\pastel1.png',1,1),(3,'Pastel de tres leches','sadasdsadas',67.54,6,'2024-04-23','2024-04-27','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\pastel3.png',1,1),(4,'Pastel horneado','hgjhjg',78.00,6,'2024-04-23','2024-04-27','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\pastel3.png',1,1),(7,'dsddsfdsdsf','hgjhgjhhj',786.00,8,'2024-04-10','2024-04-12','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\pastel3.png',1,1),(9,'pastelito','jhhkjh',77.00,78,'2024-04-11','2024-04-25','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\pastel3.png',1,1),(11,'fac','njjkhk',7.00,5,'2024-04-11','2024-04-18','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\pastel3.png',1,1),(31,'hgjhgj','',12345678.00,6,'2024-05-22','2024-06-08','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\abajo.png',1,1),(32,'u','',8788889.00,8,'2024-05-09','2024-05-10','C:\\Users\\Usuario\\Downloads\\OIP.jpg',1,1),(34,'hgjhgjhghhgj','hgjh',9.00,7,'2024-05-18','2024-06-07','C:\\Users\\Usuario\\Downloads\\OIP.jpg',1,1),(35,'hgghfhgfhgf','',76.90,78,'2024-05-23','2024-05-24','C:\\Users\\Usuario\\Documents\\github\\Cannoli-escritorio\\src\\img\\agency.png',1,1);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +352,7 @@ CREATE TABLE `proveedores` (
   PRIMARY KEY (`idProveedor`),
   KEY `estatus` (`estatus`),
   CONSTRAINT `proveedores_ibfk_1` FOREIGN KEY (`estatus`) REFERENCES `estatus` (`idEstatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +361,7 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-INSERT INTO `proveedores` VALUES (1,'Azucar glass','2288778899','Sugar',1),(2,'Caramelo','2211112233','Caramel',1);
+INSERT INTO `proveedores` VALUES (1,'Azucar glasssssd','2288778899','Sugar',NULL),(3,'sdadsadd','123213123','asdsad',NULL);
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,14 +421,11 @@ DROP TABLE IF EXISTS `venta_producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `venta_producto` (
-  `numeroVenta` int NOT NULL,
+  `idVenta` int NOT NULL,
   `idProducto` int NOT NULL,
-  `precio` float(20,4) NOT NULL,
-  `cantidad` int NOT NULL,
-  `total` int NOT NULL,
-  PRIMARY KEY (`numeroVenta`,`idProducto`),
+  PRIMARY KEY (`idVenta`,`idProducto`),
   KEY `idProducto` (`idProducto`),
-  CONSTRAINT `venta_producto_ibfk_1` FOREIGN KEY (`numeroVenta`) REFERENCES `ventas` (`idventa`),
+  CONSTRAINT `venta_producto_ibfk_1` FOREIGN KEY (`idVenta`) REFERENCES `ventas` (`idventa`),
   CONSTRAINT `venta_producto_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -448,11 +449,13 @@ DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE `ventas` (
   `idventa` int NOT NULL AUTO_INCREMENT,
   `fechaVenta` date NOT NULL,
-  `id_formaPago` int NOT NULL,
+  `cantidad` int NOT NULL,
+  `total` float(20,4) NOT NULL,
+  `idFormaPago` int NOT NULL,
   PRIMARY KEY (`idventa`),
-  KEY `id_formaPago_idx` (`id_formaPago`),
-  CONSTRAINT `id_formaPago` FOREIGN KEY (`id_formaPago`) REFERENCES `forma_pago` (`idForma_pago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `id_formaPago_idx` (`idFormaPago`),
+  CONSTRAINT `id_formaPago` FOREIGN KEY (`idFormaPago`) REFERENCES `forma_pago` (`idForma_pago`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -461,6 +464,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
+INSERT INTO `ventas` VALUES (1,'2024-04-23',4,87.9000,2);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -632,4 +636,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-17 21:56:19
+-- Dump completed on 2024-05-14 16:33:06
