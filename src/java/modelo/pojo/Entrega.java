@@ -84,5 +84,4 @@ public class Entrega {
     public void setNombreProveedor(String nombreProveedor) {
         this.nombreProveedor = nombreProveedor;
     }
-    
 }

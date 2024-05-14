@@ -61,6 +61,13 @@ public class ProductoWS {
         return ProductoDAO.obtenerProductoPorId(idProducto);
     }
     
+    @GET
+    @Path("obtenerProductosPorCategoria/{idCategoria}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Producto> obtenerProductosPorCategoria(@PathParam("idCategoria") Integer idCategoria){
+        return ProductoDAO.obtenerProductoPorCategoria(idCategoria);
+    }
+    
     @POST
     @Path("registrarProducto")
     @Produces(MediaType.APPLICATION_JSON)
