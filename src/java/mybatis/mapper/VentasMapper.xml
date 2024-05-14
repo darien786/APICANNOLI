@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ventas">
+    <select id="obtenerVentas" resultType="modelo.pojo.Venta">
+        SELECT *  
+        FROM ventas
+    </select>
+    
+    <insert id="registrarVenta" parameterType="modelo.pojo.Venta">
+        INSERT INTO ventas(fechaVenta, cantidad, total, idFormaPago) 
+        VALUES(#{fechaVenta}, #{cantidad}, #{total}, #{idFormaPago})
+    </insert>
+</mapper>
+
