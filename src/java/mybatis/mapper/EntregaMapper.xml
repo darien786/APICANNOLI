@@ -5,19 +5,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper id="entrega">
+<mapper namespace="entrega">
     <select id="obtenerEntregas" resultType="modelo.pojo.Entrega">
-        SELECT idEntrega, fechaEntrega, descripcion, empleado, proveedor, 
-        CONCAT(nombreEmpleado,' ', apellidoPaterno, ' ', apellidoMaterno) AS nombreEmpleado,
-        nombreProveedor 
+        SELECT en.idEntrega, en.fechaEntrega, en.descripcion, en.idEmpleado, en.idProveedor, 
+        CONCAT(pe.nombrePersona,' ', pe.apellidoPaterno, ' ', pe.apellidoMaterno) AS nombreEmpleado,
+        pro.nombreProveedor, pro.empresa  
         FROM entregas en 
         INNER JOIN 
-        empleados em ON en.empleado = em.idEmpleado 
+        empleados em ON en.idEmpleado = em.idEmpleado 
         INNER JOIN 
         personas pe ON em.persona = pe.idPersona 
         INNER JOIN 
-        proveedores pro ON pro.idProveedor = en.proveedor 
+        proveedores pro ON pro.idProveedor = en.idProveedor 
     </select>
     
+    <insert id="registrarEntrega" parameterType="modelo.pojo.Entrega">
+        INSERT INTO entregas (fechaEntrega, descripcion, idEmpleado, idProveedor) 
+        VALUES (#{fechaEntrega}, #{descripcion}, #{idEmpleado}, #{idProveedor})
+    </insert> 
+    
+    <update id="modificarEntrega" parameterType="modelo.pojo.Entrega">
+        UPDATE entregas SET 
+        fechaEntrega=#{fechaEntrega}, 
+        descripcion=#{descripcion},
+        idEmpleado=#{idEmpleado},
+        idProveedor=#{idProveedor} 
+        WHERE idEntrega=#{idEntrega}
+    </update>
+    
+    <delete id="eliminarEntrega" parameterType="int">
+        DELETE FROM entregas WHERE idEntrega=#{idEntrega}
+    </delete>
     
 </mapper>
