@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="entrega">
+    
     <select id="obtenerEntregas" resultType="modelo.pojo.Entrega">
         SELECT en.idEntrega, en.fechaEntrega, en.descripcion, en.idEmpleado, en.idProveedor, 
         CONCAT(pe.nombrePersona,' ', pe.apellidoPaterno, ' ', pe.apellidoMaterno) AS nombreEmpleado,
@@ -24,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES (#{fechaEntrega}, #{descripcion}, #{idEmpleado}, #{idProveedor})
     </insert> 
     
-    <update id="modificarEntrega" parameterType="modelo.pojo.Entrega">
+    <update id="editarEntrega" parameterType="modelo.pojo.Entrega">
         UPDATE entregas SET 
         fechaEntrega=#{fechaEntrega}, 
         descripcion=#{descripcion},
