@@ -17,6 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE ca.idCategoria = #{idCategoria}
     </select>
     
+    <select id="obtenerCategoriasActivas" resultType="modelo.pojo.Categoria">
+        SELECT idCategoria, nombreCategoria, fotografia, estatus 
+        FROM categorias 
+        WHERE estatus = 1;
+    </select>
+    
     <insert id="registrarCategoria" parameterType="modelo.pojo.Categoria">
         INSERT INTO categorias(nombreCategoria, fotografia, estatus) 
         VALUES(#{nombreCategoria}, #{fotografia}, #{estatus})

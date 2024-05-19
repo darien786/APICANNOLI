@@ -44,11 +44,17 @@ public class CategoriaWS {
     @GET
     @Path("obtenerCategorias")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public List<Categoria> obtenerCategorias(){
        
         return CategoriaDAO.obtenerCategorias();
         
+    }
+    
+    @GET
+    @Path("obtenerCategoriasActivas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Categoria> obtenerCategoriasActivas(){
+        return CategoriaDAO.obtenerCategoriaActivas();
     }
     
     @GET
