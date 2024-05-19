@@ -56,12 +56,12 @@ public class EntregaDAO {
                 
             }catch(Exception e){
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar esta operación, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar esta operación.");
             }finally{
                 conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;
@@ -86,12 +86,12 @@ public class EntregaDAO {
                 
             }catch(Exception e){
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar la operacion, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar la operacion.");
             }finally{
                 conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;
@@ -115,12 +115,12 @@ public class EntregaDAO {
                 }
             }catch(Exception e){
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar esta operación, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar esta operación.");
             }finally{
                 conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;

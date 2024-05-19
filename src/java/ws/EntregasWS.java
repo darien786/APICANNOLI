@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -89,6 +90,26 @@ public class EntregasWS {
             if (entrega != null) {
                 return EntregaDAO.modificarEntrega(entrega);
             } else {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
+    }
+    
+    @DELETE
+    @Path("eliminarEntrega")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarMensaje(String json){
+        if(json.isEmpty()){
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }else{
+            
+            Gson gson = new Gson();
+            Entrega entrega = gson.fromJson(json, Entrega.class);
+            
+            if(entrega != null || entrega.getIdEntrega() > 0){
+                return EntregaDAO.eliminarEntrega(entrega);
+            }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
