@@ -29,6 +29,8 @@ public class EntregaDAO {
                 
             }catch(Exception e){
                 e.printStackTrace();
+            }finally{
+                conexionBD.close();
             }
             
         }
@@ -43,6 +45,7 @@ public class EntregaDAO {
             try{
                 
                 int filasAfectadas = conexionBD.insert("entrega.registrarEntrega", entrega);
+                conexionBD.commit();
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
@@ -53,10 +56,12 @@ public class EntregaDAO {
                 
             }catch(Exception e){
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar esta operación, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar esta operación.");
+            }finally{
+                conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;
@@ -70,6 +75,7 @@ public class EntregaDAO {
             try{
             
                 int filasAfectadas = conexionBD.update("entrega.editarEntrega", entrega);
+                conexionBD.commit();
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
@@ -80,10 +86,12 @@ public class EntregaDAO {
                 
             }catch(Exception e){
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar la operacion, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar la operacion.");
+            }finally{
+                conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;
@@ -97,7 +105,7 @@ public class EntregaDAO {
             try{
             
                 int filasAfectadas = conexionBD.delete("entrega.eliminarEntrega", entrega);
-                
+                conexionBD.commit();
                 
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
@@ -107,10 +115,12 @@ public class EntregaDAO {
                 }
             }catch(Exception e){
                 e.printStackTrace();
-                mensaje.setMensaje("Por el momento no se puede realizar esta operación, favor de intentarlo mas tarde.");
+                mensaje.setMensaje("Por el momento no se puede realizar esta operación.");
+            }finally{
+                conexionBD.close();
             }
         }else{
-            mensaje.setMensaje("Por el momento no hay conexion con la base de datos, favor de intentarlo mas tarde.");
+            mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
         }
         
         return mensaje;

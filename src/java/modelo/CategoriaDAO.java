@@ -39,6 +39,22 @@ public class CategoriaDAO {
         return listaCategorias;
     }
     
+    public static List<Categoria> obtenerCategoriaActivas(){
+        List<Categoria> listaCategorias = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+        
+                listaCategorias = conexionBD.selectList("categoria.obtenerCategoriasActivas");
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+        return listaCategorias;
+    }
+    
     public static Categoria obtenerCategoriaPorId(Integer idCategoria){
         Categoria categoria = null;
         SqlSession conexionBD = MyBatisUtil.getSession();
@@ -97,8 +113,12 @@ public class CategoriaDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if (conexionBD != null) {
             try {
+                
                 int filasAfectadas = conexionBD.update("categoria.editarCategoria", categoria);
                 conexionBD.commit();
+                
+                Image image = Utilidades.decodificarImagenBase64(categoria.getFotografiaBase64());
+                Utilidades.guardarImagen(categoria.getFotografia(), image);
 
                 if (filasAfectadas > 0) {
                     mensaje.setError(false);
