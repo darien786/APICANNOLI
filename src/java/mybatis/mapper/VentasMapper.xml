@@ -20,5 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO ventas(fechaVenta, cantidad, total, idFormaPago) 
         VALUES(#{fechaVenta}, #{cantidad}, #{total}, #{idFormaPago})
     </insert>
+    
+    <delete id="eliminarVenta" parameterType="modelo.pojo.Venta">
+        
+    </delete>
 </mapper>
 
