@@ -76,7 +76,4 @@ public class Proveedor {
     public void setNombreEstatus(String nombreEstatus) {
         this.nombreEstatus = nombreEstatus;
     }
-    
-    
-    
 }

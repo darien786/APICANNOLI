@@ -22,6 +22,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE idProducto = #{idProducto}
     </select>
     
+    <select id="obtenerProductosPorCategoria" resultType="modelo.pojo.Producto" parameterType="int">
+        SELECT idProducto, nombre, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus 
+        FROM productos 
+        WHERE categoria = #{idCategoria}
+    </select>
+    
     <insert id="registrarProducto" parameterType="modelo.pojo.Producto">
         INSERT INTO productos (nombre, descripcion, precio, cantidad, fechaElaboracion, fechaVencimiento, fotografia, estatus, categoria) 
         VALUES(#{nombre}, #{descripcion}, #{precio}, #{cantidad}, #{fechaElaboracion}, #{fechaVencimiento}, #{fotografia}, 1, #{categoria})
