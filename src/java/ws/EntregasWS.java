@@ -20,109 +20,98 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import modelo.ProductoDAO;
+import modelo.EntregaDAO;
+import modelo.pojo.Entrega;
 import modelo.pojo.Mensaje;
-import modelo.pojo.Producto;
 
 /**
  * REST Web Service
  *
  * @author cr7_k
  */
-@Path("productos")
-public class ProductoWS {
+@Path("entregas")
+public class EntregasWS {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of ProductoWS
+     * Creates a new instance of EntregasWS
      */
-    public ProductoWS() {
+    public EntregasWS() {
     }
 
-    /**
-     * Retrieves representation of an instance of ws.ProductoWS
-     * @return an instance of java.lang.String
-     */
-    
-    
     @GET
-    @Path("obtenerProductos")
+    @Path("obtenerEntregas")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Producto> obtenerProductos(){        
-        return ProductoDAO.obtenerProductos();
+    public List<Entrega> obtenerEntregas() {
+
+        return EntregaDAO.obtenerEntregas();
     }
-    
+
     @GET
-    @Path("obtenerProductoPorId/{idProducto}")
+    @Path("obtenerEntregaPorId/{idEntrega}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Producto obtenerProductoPorId(@PathParam("idProducto") Integer idProducto){
-        return ProductoDAO.obtenerProductoPorId(idProducto);
+    public Entrega obtenerEntregaPorId(@PathParam("idEntrega") Integer idEntrega) {
+        return null;
     }
-    
-    @GET
-    @Path("obtenerProductosPorCategoria/{idCategoria}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Producto> obtenerProductosPorCategoria(@PathParam("idCategoria") Integer idCategoria){
-        return ProductoDAO.obtenerProductoPorCategoria(idCategoria);
-    }
-    
+
     @POST
-    @Path("registrarProducto")
+    @Path("registrarEntrega")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje registraProducto(String json){
-        if(json.isEmpty()){
+    public Mensaje registrarEntrega(String json) {
+        if (json.isEmpty()) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }else{
+        } else {
+
             Gson gson = new Gson();
-            Producto producto = gson.fromJson(json, Producto.class);
-            
-            if(producto != null){
-                return ProductoDAO.registrarProducto(producto);
-            }else{
+            Entrega entrega = gson.fromJson(json, Entrega.class);
+
+            if (entrega != null) {
+                return EntregaDAO.registrarEntrega(entrega);
+            } else {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
     }
-    
+
     @PUT
-    @Path("editarProducto")
+    @Path("modificarEntrega")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje modificarProducto(String json){
-        if(json.isEmpty()){
+    public Mensaje modificarEntrega(String json) {
+        if (json.isEmpty()) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }else{
+        } else {
             Gson gson = new Gson();
-            Producto producto = gson.fromJson(json, Producto.class);
-            
-            if(producto != null){
-                return ProductoDAO.modificarProducto(producto);
-            }else{
+            Entrega entrega = gson.fromJson(json, Entrega.class);
+
+            if (entrega != null) {
+                return EntregaDAO.modificarEntrega(entrega);
+            } else {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
     }
     
     @DELETE
-    @Path("eliminarProducto")
+    @Path("eliminarEntrega")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje eliminarProducto(String json){
+    public Mensaje eliminarMensaje(String json){
         if(json.isEmpty()){
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }else{
-            Gson gson = new Gson();
-            Producto producto = gson.fromJson(json, Producto.class);
             
-            if(producto.getIdProducto() > 0){
-                return ProductoDAO.eliminarProducto(producto);
+            Gson gson = new Gson();
+            Entrega entrega = gson.fromJson(json, Entrega.class);
+            
+            if(entrega != null || entrega.getIdEntrega() > 0){
+                return EntregaDAO.eliminarEntrega(entrega);
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
     }
-        
 }

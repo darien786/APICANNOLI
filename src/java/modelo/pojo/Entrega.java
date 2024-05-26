@@ -17,16 +17,20 @@ public class Entrega {
     private Integer idProveedor;
     private String nombreEmpleado;
     private String nombreProveedor;
+    private String empresa;
 
     public Entrega() {
     }
 
-    public Entrega(Integer idEntrega, String fechaEntrega, String descripcion, Integer idEmpleado, Integer idProveedor) {
+    public Entrega(Integer idEntrega, String fechaEntrega, String descripcion, Integer idEmpleado, Integer idProveedor, String nombreEmpleado, String nombreProveedor, String empresa) {
         this.idEntrega = idEntrega;
         this.fechaEntrega = fechaEntrega;
         this.descripcion = descripcion;
         this.idEmpleado = idEmpleado;
         this.idProveedor = idProveedor;
+        this.nombreEmpleado = nombreEmpleado;
+        this.nombreProveedor = nombreProveedor;
+        this.empresa = empresa;
     }
 
     public Integer getIdEntrega() {
@@ -57,15 +61,15 @@ public class Entrega {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(Integer empleado) {
-        this.idEmpleado = empleado;
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
     public Integer getIdProveedor() {
         return idProveedor;
     }
 
-    public void setProveedor(Integer idProveedor) {
+    public void setIdProveedor(Integer idProveedor) {
         this.idProveedor = idProveedor;
     }
 
@@ -84,5 +88,13 @@ public class Entrega {
     public void setNombreProveedor(String nombreProveedor) {
         this.nombreProveedor = nombreProveedor;
     }
-    
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
 }

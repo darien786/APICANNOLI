@@ -7,8 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="proveedor">
     <select id="obtenerProveedores" resultType="modelo.pojo.Proveedor">
-        SELECT idProveedor, nombreProveedor, telefono, empresa, estatus 
-        FROM proveedores
+        SELECT p.idProveedor, p.nombreProveedor, p.telefono, p.empresa, p.estatus, e.nombreEstatus AS nombreEstatus 
+        FROM proveedores p 
+        INNER JOIN 
+        estatus e ON p.estatus = e.idEstatus
     </select>
     
     <select id="obtenerProveedor" parameterType="int" resultType="modelo.pojo.Proveedor">

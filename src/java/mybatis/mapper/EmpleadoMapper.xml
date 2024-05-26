@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="obtenerEmpleados" resultType="modelo.pojo.Empleado"> 
         SELECT e.idEmpleado, e.persona, e.curp, e.username, e.correo, e.contrasenia, e.rol, e.estatus, 
-        CONCAT(p.nombrePersona, " ", p.apellidoPaterno, " ", p.apellidoMaterno) AS nombreEmpleado, p.telefono, es.nombreEstatus, ro.nombreRol 
+        CONCAT(p.nombrePersona, " ", p.apellidoPaterno, " ", p.apellidoMaterno) AS nombreEmpleado, p.telefono, es.nombreEstatus, ro.nombreRol
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona 
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         e.contrasenia AS 'empleado.contrasenia', 
                         e.rol AS 'empleado.rol', 
                         e.estatus AS 'empleado.estatus', 
-                        e.fotografia AS 'empleado.fotografia' 
+                        e.fotografia AS 'empleado.fotografia'
         FROM empleados e 
         INNER JOIN 
         personas p ON e.persona=p.idPersona 

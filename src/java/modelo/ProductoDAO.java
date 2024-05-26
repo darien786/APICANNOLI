@@ -41,6 +41,24 @@ public class ProductoDAO {
         return producto;
     }
     
+    public static List<Producto> obtenerProductoPorCategoria(Integer idCategoria){
+        List<Producto> listaProductos = new ArrayList<>();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if( conexionBD != null){
+            try{
+                
+                listaProductos = conexionBD.selectList("producto.obtenerProductosPorCategoria", idCategoria);
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }
+        
+        return listaProductos;
+    }
+    
     public static List<Producto> obtenerProductos(){
         List<Producto> listaProductos = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
