@@ -21,11 +21,12 @@ public class Empleado {
     private String nombreEstatus;
     private String fotografiaBase64;
     private Integer sesion;
+    private String sexo;
     
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, Integer persona, String curp, String correo, String username, String contrasenia, String fotografia, Integer rol, Integer estatus, String nombreEmpleado, String telefono, String nombreRol, String nombreEstatus, String fotografiaBase64, Integer sesion) {
+    public Empleado(Integer idEmpleado, Integer persona, String curp, String correo, String username, String contrasenia, String fotografia, Integer rol, Integer estatus, String nombreEmpleado, String telefono, String nombreRol, String nombreEstatus, String fotografiaBase64, Integer sesion, String sexo) {
         this.idEmpleado = idEmpleado;
         this.persona = persona;
         this.curp = curp;
@@ -41,6 +42,7 @@ public class Empleado {
         this.nombreEstatus = nombreEstatus;
         this.fotografiaBase64 = fotografiaBase64;
         this.sesion = sesion;
+        this.sexo = sexo;
     }
 
     public Integer getIdEmpleado() {
@@ -161,5 +163,13 @@ public class Empleado {
 
     public void setSesion(Integer sesion) {
         this.sesion = sesion;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }
