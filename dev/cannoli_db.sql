@@ -201,7 +201,7 @@ CREATE TABLE `forma_pago` (
 
 LOCK TABLES `forma_pago` WRITE;
 /*!40000 ALTER TABLE `forma_pago` DISABLE KEYS */;
-INSERT INTO `forma_pago` VALUES (1,'Tarjeta de Crédito/Débito'),(2,'Transferencia');
+INSERT INTO `forma_pago` VALUES (1,'Efectivo'),(2,'Transferencia');
 /*!40000 ALTER TABLE `forma_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -436,6 +436,7 @@ CREATE TABLE `venta_producto` (
 
 LOCK TABLES `venta_producto` WRITE;
 /*!40000 ALTER TABLE `venta_producto` DISABLE KEYS */;
+INSERT INTO `venta_producto` VALUES (6,1),(7,1),(8,3),(9,3),(10,3),(8,4),(9,4),(8,34);
 /*!40000 ALTER TABLE `venta_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -451,11 +452,13 @@ CREATE TABLE `ventas` (
   `fechaVenta` date NOT NULL,
   `cantidad` int NOT NULL,
   `total` float(20,4) NOT NULL,
+  `cambio` float NOT NULL,
+  `montoRecibido` float NOT NULL,
   `idFormaPago` int NOT NULL,
   PRIMARY KEY (`idventa`),
   KEY `id_formaPago_idx` (`idFormaPago`),
   CONSTRAINT `id_formaPago` FOREIGN KEY (`idFormaPago`) REFERENCES `forma_pago` (`idForma_pago`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,7 +467,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES (1,'2024-04-23',4,87.9000,2);
+INSERT INTO `ventas` VALUES (1,'2024-04-23',4,87.9000,0,0,2),(2,'2024-05-26',1,78.0000,767,689,1),(3,'2024-05-26',1,67.5400,67.98,0.44,1),(4,'2024-05-26',1,45.3000,76,30.7,1),(5,'2024-05-26',1,67.5400,78,10.46,1),(6,'2024-05-26',1,45.3000,76,30.7,1),(7,'2024-05-26',1,45.3000,67,21.7,1),(8,'2024-05-26',3,635.1600,700,64.84,1),(9,'2024-05-26',2,145.5400,678,532.46,1),(10,'2024-05-26',1,5268.1201,7699,2430.88,1);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,4 +639,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-14 16:33:06
+-- Dump completed on 2024-05-27 17:32:06

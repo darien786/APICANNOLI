@@ -16,9 +16,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM ventas
     </select>
     
+    <select id="obtenerUltimoIdVenta" resultType="int">
+        SELECT MAX(idVenta) FROM ventas
+    </select>
+    
+    <select id="obtenerVentaPorId" resultType="modelo.pojo.Venta" parameterType="int">
+        SELECT * 
+        FROM ventas 
+        WHERE idVenta = #{idVenta}
+    </select>
+    
     <insert id="registrarVenta" parameterType="modelo.pojo.Venta">
-        INSERT INTO ventas(fechaVenta, cantidad, total, idFormaPago) 
-        VALUES(#{fechaVenta}, #{cantidad}, #{total}, #{idFormaPago})
+        INSERT INTO ventas(fechaVenta, cantidad, total, idFormaPago, cambio, montoRecibido) 
+        VALUES(#{fechaVenta}, #{cantidad}, #{total}, #{idFormaPago}, #{montoRecibido}, #{cambio})
+    </insert>
+    
+    <insert id="registrarProductoEnVenta" parameterType="modelo.pojo.Venta">
+        INSERT INTO venta_producto(idVenta, idProducto) 
+        VALUES(#{idVenta}, #{idProducto})
     </insert>
 </mapper>
 

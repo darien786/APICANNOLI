@@ -16,16 +16,20 @@ public class Venta {
     private int cantidad;
     private float total;
     private int idFormaPago;
+    private float montoRecibido;
+    private float cambio;
 
     public Venta() {
     }
 
-    public Venta(int idVenta, String fechaVenta, int cantidad, float total, int idFormaPago) {
+    public Venta(int idVenta, String fechaVenta, int cantidad, float total, int idFormaPago, float montoRecibido, float cambio) {
         this.idVenta = idVenta;
         this.fechaVenta = fechaVenta;
         this.cantidad = cantidad;
         this.total = total;
         this.idFormaPago = idFormaPago;
+        this.montoRecibido = montoRecibido;
+        this.cambio = cambio;
     }
 
     public int getIdVenta() {
@@ -66,5 +70,21 @@ public class Venta {
 
     public void setIdFormaPago(int idFormaPago) {
         this.idFormaPago = idFormaPago;
+    }
+
+    public float getMontoRecibido() {
+        return montoRecibido;
+    }
+
+    public void setMontoRecibido(float montoRecibido) {
+        this.montoRecibido = montoRecibido;
+    }
+
+    public float getCambio() {
+        return cambio;
+    }
+
+    public void setCambio(float cambio) {
+        this.cambio = cambio;
     }
 }

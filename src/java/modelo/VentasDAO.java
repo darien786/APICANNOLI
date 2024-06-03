@@ -5,7 +5,9 @@
  */
 package modelo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Venta;
 import mybatis.MyBatisUtil;
@@ -16,6 +18,7 @@ import org.apache.ibatis.session.SqlSession;
  * @author Usuario
  */
 public class VentasDAO {
+
     public static List<Venta> obtenerVentas() {
         List<Venta> ventas = null;
         SqlSession conexionBD = MyBatisUtil.getSession();
@@ -32,8 +35,24 @@ public class VentasDAO {
         }
         return ventas;
     }
-    
-     public static Mensaje registrarVenta(Venta venta) {
+
+    public static Venta obtenerVentaPorId(Integer idVenta) {
+        Venta venta = new Venta();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                venta = conexionBD.selectOne("venta.obtenerVentaPorId", idVenta);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        }
+
+        return venta;
+    }
+
+    public static Mensaje registrarVenta(Venta venta) {
         Mensaje mensaje = new Mensaje();
         mensaje.setError(false);
         SqlSession conexionBD = MyBatisUtil.getSession();
@@ -57,6 +76,36 @@ public class VentasDAO {
             }
         } else {
             mensaje.setMensaje("Por el momento no hay conexion con la base de datos.");
+        }
+        return mensaje;
+    }
+
+    public static Mensaje registrarProductoEnVenta(int idVenta, int idProducto) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(false);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                Map<String, Object> params = new HashMap<>();
+                params.put("idVenta", idVenta);
+                params.put("idProducto", idProducto);
+
+                int filasAfectadas = conexionBD.insert("ventas.registrarProductoEnVenta", params);
+                conexionBD.commit();
+
+                if (filasAfectadas > 0) {
+                    mensaje.setMensaje("Registro éxitoso");
+                } else {
+                    mensaje.setMensaje("Registro fallido");
+                }
+            } catch (Exception e) {
+                mensaje.setMensaje("Por el momento no se puede realizar la operación, favor de intentarlo mas tarde.");
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        } else {
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
         }
         return mensaje;
     }
