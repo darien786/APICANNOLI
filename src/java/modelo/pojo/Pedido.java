@@ -9,55 +9,89 @@ import java.util.Date;
  */
 public class Pedido {
     
-     private Integer numeroPedido;
-    private Date fecha;
-    private Integer cliente;
-    private String formaPago;
+    private Integer idPedido;
+    private String fechaPedido;
+    private String fechaEntrega;
+    private String nombreCliente;
+    private String telefono;
+    private Float abono;
+    private Float total;
     private String descripcion;
     private String fotografia;
+    private Integer id_formaPago;
+    private Integer id_estado;
 
     public Pedido() {
     }
 
-    public Pedido(Integer numeroPedido, Date fecha, Integer cliente, String formaPago, String descripcion, String fotografia) {
-        this.numeroPedido = numeroPedido;
-        this.fecha = fecha;
-        this.cliente = cliente;
-        this.formaPago = formaPago;
+    public Pedido(Integer idPedido, String fechaPedido, String fechaEntrega, String nombreCliente, String telefono, Float abono, Float total, String descripcion, String fotografia, Integer id_formaPago, Integer id_estado) {
+        this.idPedido = idPedido;
+        this.fechaPedido = fechaPedido;
+        this.fechaEntrega = fechaEntrega;
+        this.nombreCliente = nombreCliente;
+        this.telefono = telefono;
+        this.abono = abono;
+        this.total = total;
         this.descripcion = descripcion;
         this.fotografia = fotografia;
+        this.id_formaPago = id_formaPago;
+        this.id_estado = id_estado;
     }
 
-    public Integer getNumeroPedido() {
-        return numeroPedido;
+    public Integer getIdPedido() {
+        return idPedido;
     }
 
-    public void setNumeroPedido(Integer numeroPedido) {
-        this.numeroPedido = numeroPedido;
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getFechaPedido() {
+        return fechaPedido;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaPedido(String fechaPedido) {
+        this.fechaPedido = fechaPedido;
     }
 
-    public Integer getCliente() {
-        return cliente;
+    public String getFechaEntrega() {
+        return fechaEntrega;
     }
 
-    public void setCliente(Integer cliente) {
-        this.cliente = cliente;
+    public void setFechaEntrega(String fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
     }
 
-    public String getFormaPago() {
-        return formaPago;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setFormaPago(String formaPago) {
-        this.formaPago = formaPago;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Float getAbono() {
+        return abono;
+    }
+
+    public void setAbono(Float abono) {
+        this.abono = abono;
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
     }
 
     public String getDescripcion() {
@@ -75,7 +109,20 @@ public class Pedido {
     public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
-    
-    
-    
+
+    public Integer getId_formaPago() {
+        return id_formaPago;
+    }
+
+    public void setId_formaPago(Integer id_formaPago) {
+        this.id_formaPago = id_formaPago;
+    }
+
+    public Integer getId_estado() {
+        return id_estado;
+    }
+
+    public void setId_estado(Integer id_estado) {
+        this.id_estado = id_estado;
+    }
 }
