@@ -19,9 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM pedidos WHERE idPedido = #{idPedido}
     </select>
     
-    <insert id = "registrarPedido" parameterType="modelo.pojo.DatosRegistroPedido" statementType="CALLABLE">
-        INSERT INTO (fechaPedido, fechaEntrega, nombreCliente, telefono, abono, total, descripcion, fotografia, id_formaPago, id_estado) 
-        VALUES (#{fechaPedido}, #{fehcaEntrega}, #{nombreCliente}, #{telefono}, #{abono}, #{total}, #{descripcion}, #{fotografia}, #{id_formaPago}, #{id_estado}) 
+    <insert id = "registrarPedido" parameterType="modelo.pojo.Pedido" >
+        INSERT INTO pedidos (fechaPedido, fechaEntrega, nombreCliente, telefono, cantidad, abono, total, descripcion, fotografia, id_formaPago, id_estado) 
+        VALUES (#{fechaPedido}, #{fechaEntrega}, #{nombreCliente}, #{telefono}, #{cantidad}, #{abono}, #{total}, #{descripcion}, #{fotografia}, #{id_formaPago}, #{id_estado}) 
     </insert>
     
     
