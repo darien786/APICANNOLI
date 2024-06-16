@@ -74,6 +74,7 @@ public class PedidosWS {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Mensaje registrarPedido(String json){
+       
         if(json.isEmpty()){
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }else{
@@ -87,5 +88,7 @@ public class PedidosWS {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
+        
     }
+    
 }

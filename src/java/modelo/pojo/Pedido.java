@@ -14,6 +14,7 @@ public class Pedido {
     private String fechaEntrega;
     private String nombreCliente;
     private String telefono;
+    private Integer cantidad;
     private Float abono;
     private Float total;
     private String descripcion;
@@ -24,12 +25,13 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido, String fechaPedido, String fechaEntrega, String nombreCliente, String telefono, Float abono, Float total, String descripcion, String fotografia, Integer id_formaPago, Integer id_estado) {
+    public Pedido(Integer idPedido, String fechaPedido, String fechaEntrega, String nombreCliente, String telefono, Integer cantidad, Float abono, Float total, String descripcion, String fotografia, Integer id_formaPago, Integer id_estado) {
         this.idPedido = idPedido;
         this.fechaPedido = fechaPedido;
         this.fechaEntrega = fechaEntrega;
         this.nombreCliente = nombreCliente;
         this.telefono = telefono;
+        this.cantidad = cantidad;
         this.abono = abono;
         this.total = total;
         this.descripcion = descripcion;
@@ -76,6 +78,14 @@ public class Pedido {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Float getAbono() {
@@ -125,4 +135,5 @@ public class Pedido {
     public void setId_estado(Integer id_estado) {
         this.id_estado = id_estado;
     }
+
 }
