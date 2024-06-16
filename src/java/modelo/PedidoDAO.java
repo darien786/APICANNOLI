@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.image.Image;
 import modelo.pojo.Estado;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Pedido;
 import modelo.pojo.PedidoProducto;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
+import utils.Utilidades;
 
 /**
  *
@@ -52,6 +54,9 @@ public class PedidoDAO {
                 int filasAfectadas = conexionBD.insert("pedido.registrarPedido", pedido);
                 conexionBD.commit();
                 
+                Image image = Utilidades.decodificarImagenBase64(pedido.getImagenBase64());
+                Utilidades.guardarImagen(pedido.getFotografia(), image);
+                
                 if(filasAfectadas > 0){
                     mensaje.setError(false);
                     mensaje.setMensaje("Registro éxitoso");
@@ -81,7 +86,8 @@ public class PedidoDAO {
                 
                 int filasAfectadas = conexionBD.insert("pedido.registrarProductoEnPedido", pedidoProducto);
                 conexionBD.commit();
-
+                
+                
                 if (filasAfectadas > 0) {
                     mensaje.setMensaje("Registro éxitoso");
                 } else {
