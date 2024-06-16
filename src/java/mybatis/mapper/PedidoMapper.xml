@@ -8,24 +8,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="pedido">
     
     <select id= "obtenerPedidos" resultType="modelo.pojo.Pedido">
-        SELECT numeroPedido, nombreRol 
-        FROM pedidos
+        SELECT * FROM pedidos
     </select>
     
+    <select id="obtenerEstados" resultType="modelo.pojo.Estado">
+        SELECT * FROM estado
+    </select>
     
-    <select id="obtenerPedidoPorNumero" resultType="modelo.pojo.Pedido" parameterType="modelo.pojo.Pedido">
-        SELECT numeroPedido, fecha, formaPago, descripcion FROM pedidos
-        WHERE numeroPedido =#{numeroPedido}
+    <select id="obtenerPedidoPorId" parameterType="int" resultType="modelo.pojo.Pedido">
+        SELECT * FROM pedidos WHERE idPedido = #{idPedido}
     </select>
     
     <insert id = "registrarPedido" parameterType="modelo.pojo.DatosRegistroPedido" statementType="CALLABLE">
-        
+        INSERT INTO (fechaPedido, fechaEntrega, nombreCliente, telefono, abono, total, descripcion, fotografia, id_formaPago, id_estado) 
+        VALUES (#{fechaPedido}, #{fehcaEntrega}, #{nombreCliente}, #{telefono}, #{abono}, #{total}, #{descripcion}, #{fotografia}, #{id_formaPago}, #{id_estado}) 
     </insert>
+    
+    
 
     <delete id="eliminarPedido">
         
     </delete>
-    
-    
     
 </mapper>
