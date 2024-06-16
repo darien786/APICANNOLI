@@ -6,10 +6,13 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modelo.pojo.Estado;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Pedido;
+import modelo.pojo.PedidoProducto;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
@@ -66,6 +69,33 @@ public class PedidoDAO {
             mensaje.setMensaje("Por el momento no hay conexion con a base de datos. ");
         }
         
+        return mensaje;
+    }
+    
+    public static Mensaje registrarProductoEnVenta(PedidoProducto pedidoProducto) {
+        Mensaje mensaje = new Mensaje();
+        mensaje.setError(false);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                
+                int filasAfectadas = conexionBD.insert("pedido.registrarProductoEnPedido", pedidoProducto);
+                conexionBD.commit();
+
+                if (filasAfectadas > 0) {
+                    mensaje.setMensaje("Registro éxitoso");
+                } else {
+                    mensaje.setMensaje("Registro fallido");
+                }
+            } catch (Exception e) {
+                mensaje.setMensaje("Por el momento no se puede realizar la operación, favor de intentarlo mas tarde.");
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        } else {
+            mensaje.setMensaje("Por el momento no hay conexión con la base de datos.");
+        }
         return mensaje;
     }
     

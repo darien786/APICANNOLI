@@ -5,8 +5,10 @@
  */
 package ws;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import java.util.List;
+import java.util.Map;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -20,9 +22,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import modelo.PedidoDAO;
+import modelo.VentasDAO;
 import modelo.pojo.Estado;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Pedido;
+import modelo.pojo.PedidoProducto;
 
 /**
  * REST Web Service
@@ -45,50 +49,67 @@ public class PedidosWS {
     @Path("obtenerPedidos")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Pedido> obtenerPedidos(){
-        
+    public List<Pedido> obtenerPedidos() {
+
         return PedidoDAO.obtenerPedidos();
     }
-    
-    
+
     @GET
     @Path("obtenerEstados")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Estado> obtenerEstados(){
-        
+    public List<Estado> obtenerEstados() {
+
         return PedidoDAO.obtenerEstados();
     }
-    
+
     @GET
     @Path("obtenerPedidoPorId/{idPedido}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Pedido obtenerPedidoPorId(@PathParam("idPedido") Integer idPedido){
-        
+    public Pedido obtenerPedidoPorId(@PathParam("idPedido") Integer idPedido) {
+
         return null;
     }
-    
+
     @POST
     @Path("registrarPedido")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mensaje registrarPedido(String json){
-       
-        if(json.isEmpty()){
+    public Mensaje registrarPedido(String json) {
+
+        if (json.isEmpty()) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }else{
-            
-            Gson gson =  new Gson();
+        } else {
+
+            Gson gson = new Gson();
             Pedido pedido = gson.fromJson(json, Pedido.class);
-            
-            if(pedido != null){
+
+            if (pedido != null) {
                 return PedidoDAO.registrarPedido(pedido);
-            }else{
+            } else {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }
-        
+
     }
-    
+
+    @POST
+    @Path("registrarProductoEnPedido")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje registrarProductoEnVenta(String json) {
+        if (json.isEmpty()) {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        } else {
+            Gson gson = new Gson();
+            PedidoProducto pedido = gson.fromJson(json, PedidoProducto.class);
+            if (pedido != null) {
+                return PedidoDAO.registrarProductoEnVenta(pedido);
+            } else {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
+    }
+
 }
