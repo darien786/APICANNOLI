@@ -35,5 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO venta_producto(idVenta, idProducto) 
         VALUES(#{idVenta}, #{idProducto})
     </insert>
+    
+    <delete id="eliminarVenta" parameterType="modelo.pojo.Venta">
+        
+    </delete>
 </mapper>
 
