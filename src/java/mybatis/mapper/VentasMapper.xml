@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerVentaPorId" resultType="modelo.pojo.Venta" parameterType="int">
         SELECT * 
         FROM ventas 
-        WHERE idVenta = #{idVenta}
+        WHERE idventa = #{idventa}
     </select>
     
     <insert id="registrarVenta" parameterType="modelo.pojo.Venta">

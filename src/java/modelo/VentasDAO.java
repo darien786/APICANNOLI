@@ -41,7 +41,7 @@ public class VentasDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if (conexionBD != null) {
             try {
-                venta = conexionBD.selectOne("venta.obtenerVentaPorId", idVenta);
+                venta = conexionBD.selectOne("ventas.obtenerVentaPorId", idVenta);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
