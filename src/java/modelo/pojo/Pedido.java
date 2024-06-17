@@ -21,6 +21,7 @@ public class Pedido {
     private String fotografia;
     private Integer id_formaPago;
     private Integer id_estado;
+    private String imagenBase64;
 
     public Pedido() {
     }
@@ -135,5 +136,15 @@ public class Pedido {
     public void setId_estado(Integer id_estado) {
         this.id_estado = id_estado;
     }
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
+
+    public void setImagenBase64(String imagenBase64) {
+        this.imagenBase64 = imagenBase64;
+    }
+ 
+    
 
 }

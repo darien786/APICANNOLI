@@ -24,10 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         VALUES (#{fechaPedido}, #{fechaEntrega}, #{nombreCliente}, #{telefono}, #{cantidad}, #{abono}, #{total}, #{descripcion}, #{fotografia}, #{id_formaPago}, #{id_estado}) 
     </insert>
     
-    
-
-    <delete id="eliminarPedido">
-        
-    </delete>
+    <insert id="registrarProductoEnPedido" parameterType="modelo.pojo.PedidoProducto">
+        INSERT INTO pedido_producto (idProducto, idPedido) 
+        VALUES(#{idProducto}, #{idPedido}) 
+    </insert>
     
 </mapper>
